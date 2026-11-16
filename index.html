@@ -302,18 +302,15 @@ footer small{opacity:.75}
 .bigtitle p{margin:6px 0 0;color:var(--ink-2);font-weight:600}
 .bigtitle::before,.bigtitle::after{content:"";display:block;height:10px;margin:0 auto 14px;max-width:220px;background:repeating-linear-gradient(-45deg,var(--burg) 0 8px,#fff 8px 16px);border-radius:6px;border-bottom:2px solid var(--green)}
 .bigtitle::after{margin:18px auto 0}
-.cattiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
-.cattile{position:relative;display:flex;flex-direction:column;border:0;padding:0;border-radius:20px;overflow:hidden;background:var(--burg-2);color:#fff;text-align:left;box-shadow:var(--shadow);transition:transform .2s ease}
-.cattile:active{transform:scale(.97)}
+.cattiles{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px}
+.cattile{display:grid;grid-template-columns:42% 1fr;align-items:stretch;border:0;padding:0;border-radius:18px;overflow:hidden;background:var(--burg-2);color:#fff;text-align:left;box-shadow:var(--shadow);transition:transform .2s ease;font:inherit}
+.cattile:active{transform:scale(.98)}
 @media (hover:hover){.cattile:hover{transform:translateY(-3px)}}
-.cattile img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;flex:none}
-.cattile::after{content:none}
-.cattile .ct{display:block;flex:1;padding:10px 12px 12px;background:var(--burg-2);border-top:3px solid var(--gold)}
-.cattile b{display:block;font-family:var(--display);font-size:21px;line-height:1.1}
-.cattile small{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:13px;font-weight:600;opacity:.95}
-.cattile.wide{grid-column:1/-1;flex-direction:row}.cattile.wide img{width:56%}.cattile.wide .ct{display:flex;flex-direction:column;justify-content:center;border-top:0;border-left:3px solid var(--gold)}
-.cattile.wide b{font-size:26px}
-@media (min-width:900px){.cattiles{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}.cattile.wide{grid-column:auto;flex-direction:column}.cattile.wide img{width:100%}.cattile.wide .ct{display:block;border-left:0;border-top:3px solid var(--gold)}.cattile.wide b{font-size:21px}}
+.cattile img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
+.cattile .ct{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:12px 16px;border-left:3px solid var(--gold)}
+.cattile b{display:block;font-family:var(--display);font-size:20px;line-height:1.15}
+.cattile small{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#E7CC9A}
+@media (min-width:900px){.cattiles{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}.cattile{grid-template-columns:1fr;grid-template-rows:auto 1fr}.cattile img{height:auto}.cattile .ct{border-left:0;border-top:3px solid var(--gold);align-items:center;text-align:center;justify-content:flex-start;padding:14px 12px 16px;min-height:96px}.cattile b{font-size:19px}}
 .tabs{margin:14px 0 6px}
 /* pay */
 .pay{padding-block:6px 24px;scroll-margin-top:90px}
@@ -553,8 +550,8 @@ var I_PLUS = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentCo
 var I_ERR = '<svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 6v8M12 17v1" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>';
 
 var CATS = [
-  {id:"hampers", tab:"Hampers", name:"Gift Hampers & Boxes", img:"p_macarons"},
-  {id:"sweets", tab:"Sweets", name:"Traditional Christmas Sweets", img:"p_marzipan"},
+  {id:"hampers", tab:"Hampers", name:"Gift Hampers & Boxes", img:"p_marzipan"},
+  {id:"sweets", tab:"Sweets", name:"Traditional Christmas Sweets", img:"p_kulkul"},
   {id:"cakes", tab:"Cakes & Desserts", name:"Cakes & Desserts", img:"p_datewal"},
   {id:"cookies", tab:"Cookies", name:"Christmas Cookies", img:"p_santa"},
   {id:"kits", tab:"Kits & Cocoa", name:"Kits & Cocoa Bombs", img:"p_bombs"}
@@ -659,7 +656,7 @@ function hcard(it){
 function renderMenu(){
   $("tabs").innerHTML = CATS.map(function(c,i){ return '<button class="tab" role="tab" type="button" aria-selected="'+(i===0)+'" data-go="'+c.id+'">'+esc(c.tab)+'</button>'; }).join("");
   $("cattiles").innerHTML = CATS.map(function(c,i){ var n = ITEMS.filter(function(x){ return x.cat===c.id; }).length;
-    return '<button type="button" class="cattile'+(i===0?' wide':'')+'" data-go="'+c.id+'"><img src="'+IMG[c.img]+'" alt="" loading="lazy" width="800" height="600"><span class="ct"><b>'+esc(c.name)+'</b><small>'+n+' items <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></span></button>'; }).join("");
+    return '<button type="button" class="cattile" data-go="'+c.id+'"><img src="'+IMG[c.img]+'" alt="" loading="lazy" width="800" height="600"><span class="ct"><b>'+esc(c.name)+'</b><small>'+n+' items <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></span></button>'; }).join("");
   $("hgrid").innerHTML = ITEMS.filter(function(i){ return i.cat==="hampers"; }).map(hcard).join("");
   drawGroups();
 }
