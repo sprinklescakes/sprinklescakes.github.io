@@ -466,12 +466,12 @@ footer small{opacity:.75}
       <li><i>1</i><span><b>Pick your treats</b><small>Tap + on anything you like</small></span></li>
       <li><i>2</i><span><b>Choose 20–24 December</b><small>Morning or evening</small></span></li>
       <li><i>3</i><span><b>Delivery or pickup</b><small>Delivery charges depend on your area. Rebecca confirms on WhatsApp.</small></span></li>
-      <li><i>4</i><span><b>Pay by UPI</b><small>Pickup: pay now or at pickup. Delivery: after Rebecca confirms.</small></span></li>
+      <li><i>4</i><span><b>Rebecca confirms</b><small>She confirms your order and shares payment details on WhatsApp.</small></span></li>
     </ol>
   </div>
 </section>
 
-<section class="pay wrap" id="pay" aria-labelledby="payT">
+<section class="pay wrap" id="pay" aria-labelledby="payT" hidden>
   <div class="paycard">
     <div class="paytext">
       <div class="label">Payment</div>
@@ -520,7 +520,7 @@ footer small{opacity:.75}
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sTitle" aria-hidden="true">
   <div class="shead"><h2 id="sTitle">Your cart</h2><button class="x" type="button" id="sClose" aria-label="Close"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <div class="prog" id="prog" aria-hidden="true"><div><i>1</i>Cart</div><div><i>2</i>Details</div><div><i>3</i>Review &amp; pay</div></div>
+  <div class="prog" id="prog" aria-hidden="true"><div><i>1</i>Cart</div><div><i>2</i>Details</div><div><i>3</i>Review order</div></div>
   <div class="sbody" id="sbody"></div>
   <div class="sfoot" id="sfoot"></div>
 </div>
@@ -781,14 +781,11 @@ function render(){
       es.hidden = true; form.website = $("website").value; step = 3; render(); };
   }
   if(step===3){
-    $("sTitle").textContent = "Review & pay";
-    var dl = form.mode === "delivery", payNow = form.pay !== "later";
+    $("sTitle").textContent = "Review order";
+    var dl = form.mode === "delivery", payNow = false; form.pay = "whatsapp";
     B.innerHTML = '<div class="box"><h4>Items <button type="button" data-edit="1">Edit</button></h4>'+lines(false)+'<div class="sum" style="margin-top:10px"><span>Items total</span><b class="num">'+rupee(subtotal())+'</b></div></div>'
       + '<div class="box"><h4>'+(dl?"Delivery":"Pickup")+' <button type="button" data-edit="2">Edit</button></h4><div>'+esc(form.cname)+' · <span class="num">'+esc(form.cphone)+'</span></div>'+(dl?'<div class="help" style="font-size:14px">'+esc(form.addr)+', '+esc(form.area)+(form.landmark?' (near '+esc(form.landmark)+')':'')+'</div>':'')+'<div class="help" style="font-size:14px">'+niceDate(form.date)+' · '+esc(form.slot)+'</div>'+'</div>'
-      + '<div class="box"><h4>Payment</h4>'+(dl ? '<div class="note" style="margin:6px 0 0"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.5" stroke-linecap="round"/></svg><span>Delivery charges depend on your area. Rebecca will confirm availability and the final total on WhatsApp, then you pay by UPI.</span></div>'
-        : '<div class="choice" role="radiogroup" aria-label="Payment" style="margin:8px 0 0"><label><input type="radio" name="pay" value="now"'+(payNow?" checked":"")+'>Pay now (UPI)<span class="ck">✓</span></label><label><input type="radio" name="pay" value="later"'+(!payNow?" checked":"")+'>Pay at pickup<span class="ck">✓</span></label></div>'
-          + '<div class="upi" id="upiBox"'+(payNow?"":" hidden")+'><div class="paybox"><div class="qr" id="qrPay"></div><div class="help">Scan with any UPI app, or tap the button on your phone</div><a class="btn btn-green block" id="upiA" href="'+esc(upiUrl(subtotal()))+'">Pay '+rupee(subtotal())+' with UPI app</a><div class="upiid" style="width:100%"><span>UPI ID</span><b class="upiTxt">'+esc(CFG.upiId)+'</b><button type="button" class="cpy" data-copy="upi">Copy</button></div></div>'
-          + fld("txn","UPI transaction ID (optional)",'<input id="txn" inputmode="numeric" maxlength="14" placeholder="e.g. 431234567890" value="'+v("txn")+'">',"The 12-digit UPI Ref / UTR number from your UPI app helps Rebecca find your payment faster.") + '</div>') + '</div>'
+      + '<div class="box"><h4>Payment</h4><div class="note" style="margin:6px 0 0"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.5" stroke-linecap="round"/></svg><span>No payment now. Rebecca will confirm your order'+(dl?' and the delivery charge':'')+' on WhatsApp and share the payment details.</span></div></div>'
       + '<label class="chk"><input type="checkbox" id="agree"'+(form.agree?" checked":"")+'><span>I understand that orders once confirmed cannot be cancelled.</span></label><span class="err" id="e-agree" hidden></span>'
       + (LIVE ? '' : '<div class="note" style="font-size:13px">Preview mode: this copy is not connected to the order sheet.</div>');
     var needPay = !dl && payNow && !form.paidTap;
@@ -806,7 +803,7 @@ function render(){
       if(!mob){ ev.preventDefault(); var q = $("qrPay"); if(q) q.scrollIntoView({block:"center",behavior:"smooth"}); }
       setTimeout(function(){ form.paidTap = true; save(); render(); }, mob ? 1500 : 4000);
     };
-    if(!dl) drawQR($("qrPay"), upiUrl(subtotal()));
+    if(!dl && $("qrPay")) drawQR($("qrPay"), upiUrl(subtotal()));
   }
   if(step===4){
     $("sTitle").textContent = "Order placed";
@@ -840,7 +837,7 @@ function buildMsg(id, items, total){
     ["", "Items total: " + rupee(total),
      dl ? "Delivery: " + form.addr + ", " + form.area + (form.landmark?" (near "+form.landmark+")":"") + ". Please confirm the delivery charge." : "Pickup",
      "Date: " + niceDate(form.date) + " · " + form.slot, "Name: " + form.cname + " · " + form.cphone,
-     "Payment: " + (dl ? "after confirmation" : form.pay==="later" ? "at pickup" : "UPI paid" + (form.txn ? ", txn " + form.txn : "") + " (please verify)"),
+     "Payment: not paid yet, please share payment details",
      form.notes ? "Notes: " + form.notes : ""]).filter(Boolean).join("\n");
 }
 var placing = false;
@@ -859,7 +856,7 @@ function place(){
     var id = res.id;
     lastOrder = {id:id, total:total, del: form.mode==="delivery", name: form.cname, lines: lines(false), msg: buildMsg(id, items, total)};
     cart = {}; var keep = {cname:form.cname, cphone:form.cphone, mode:form.mode, addr:form.addr, area:form.area, landmark:form.landmark}; form = keep; save();
-    var autoWA = !lastOrder.del && payload.form.pay !== "later";
+    var autoWA = false;
     step = 4; render(); $("cartN").textContent = "0"; refresh();
     if(autoWA) location.href = "https://wa.me/"+WA+"?text="+encodeURIComponent(lastOrder.msg);
   }
