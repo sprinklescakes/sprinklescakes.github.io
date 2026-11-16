@@ -402,6 +402,19 @@ footer small{opacity:.75}
 @keyframes peekR{0%{transform:translateX(105%) scaleX(-1)}18%,78%{transform:translateX(30%) scaleX(-1) rotate(12deg)}100%{transform:translateX(105%) scaleX(-1)}}
 @keyframes pkwave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
 @media (min-width:900px){.peek{width:130px}}
+
+.tour{position:fixed;inset:0;z-index:90}
+.tour-hole{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(30,6,12,.66);transition:all .35s ease;pointer-events:none;outline:3px solid #D9B77E;outline-offset:3px}
+.tour-tip{position:fixed;left:16px;right:16px;max-width:380px;margin:0 auto;background:#FFFDF8;color:var(--ink);border-radius:18px;padding:16px 16px 14px;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:top .35s ease}
+.tour-tip .st{font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.tour-tip h4{margin:4px 0 6px;font:700 20px var(--display);color:var(--burg-2)}
+.tour-tip p{margin:0 0 14px;font-size:15px;line-height:1.45;color:#4a3a36}
+.tour-tip .tb{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tour-tip .dots{display:flex;gap:6px}.tour-tip .dots i{width:7px;height:7px;border-radius:50%;background:#E3D8C8}.tour-tip .dots i.on{background:var(--burg)}
+.tour-tip button{border:0;border-radius:999px;font:600 15px var(--body);min-height:44px;padding:0 18px;cursor:pointer}
+.tour-tip .tskip{background:none;color:#7a6a64;padding:0 8px}
+.tour-tip .tnext{background:#2E7D55;color:#fff}
+.tourbtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--green);color:var(--green);background:none;border-radius:999px;min-height:44px;padding:0 18px;font:600 15px var(--body);cursor:pointer}
 @media (prefers-reduced-motion:reduce){.peek{display:none}}
 @media (prefers-reduced-motion:reduce){.bigflake{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -476,6 +489,7 @@ footer small{opacity:.75}
 <section class="how wrap" id="how" aria-labelledby="howT">
   <div class="how-card">
     <h2 id="howT">How to order</h2>
+    <button type="button" class="tourbtn" id="tourStart">Show me how (30-second tour)</button>
     <ol class="how-list">
       <li><i>1</i><span><b>Pick your treats</b><small>Tap + on anything you like</small></span></li>
       <li><i>2</i><span><b>Choose 20–24 December</b><small>Morning or evening</small></span></li>
@@ -971,6 +985,44 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
     setTimeout(go, 16000+Math.random()*20000);
   }
   setTimeout(go, 7000+Math.random()*6000);
+})();
+
+(function tour(){
+  var S=[
+    {sel:"#cattiles .cattile", t:"Pick a category", p:"Tap any category to jump straight to those sweets, cakes, cookies or hampers."},
+    {sel:"#groups .plus", t:"Add items", p:"Tap + to add an item to your cart. Tap it again to add more."},
+    {sel:"#cartBtn", t:"Open your cart", p:"Everything you add is saved here. When you're done, tap Cart to review your items."},
+    {sel:null, t:"Enter your details", p:"In the cart, tap Next and enter your name and WhatsApp number, then choose Pickup or Delivery. For delivery, add your address and area. Rebecca confirms the delivery charge."},
+    {sel:null, t:"Pick a date and time", p:"Choose a day between 20 and 24 December and a Morning or Evening slot."},
+    {sel:null, t:"Place order on WhatsApp", p:"Review your order and tap Place order on WhatsApp. WhatsApp opens with your order ready, just press Send. Rebecca confirms and shares payment details. Last date to order: 13 December."}
+  ], i=0, ov, hole, tip;
+  function done(){ try{ localStorage.setItem("sprk_tour","1"); }catch(e){} if(ov){ ov.remove(); ov=null; } removeEventListener("resize",place); }
+  function place(){
+    var s=S[i], el=s.sel && document.querySelector(s.sel), vh=innerHeight;
+    if(el){ var r=el.getBoundingClientRect(), pad=6;
+      hole.style.cssText="top:"+(r.top-pad)+"px;left:"+(r.left-pad)+"px;width:"+(r.width+pad*2)+"px;height:"+(r.height+pad*2)+"px";
+      var th=tip.offsetHeight, below=r.bottom+18;
+      tip.style.top=((below+th<vh-10)?below:Math.max(10,r.top-th-18))+"px";
+    } else { hole.style.cssText="top:50%;left:50%;width:0;height:0"; tip.style.top=Math.max(20,(vh-tip.offsetHeight)/2)+"px"; }
+  }
+  function show(){
+    var s=S[i], el=s.sel && document.querySelector(s.sel);
+    tip.innerHTML='<div class="st">Step '+(i+1)+' of '+S.length+'</div><h4>'+s.t+'</h4><p>'+s.p+'</p><div class="tb"><button type="button" class="tskip">Skip</button><span class="dots">'+S.map(function(_,k){return '<i'+(k===i?' class="on"':'')+'></i>';}).join("")+'</span><button type="button" class="tnext">'+(i===S.length-1?"Got it":"Next")+'</button></div>';
+    tip.querySelector(".tskip").onclick=done;
+    tip.querySelector(".tnext").onclick=function(){ if(i<S.length-1){ i++; show(); } else done(); };
+    if(el && s.sel!=="#cartBtn"){ var y=el.getBoundingClientRect().top+scrollY-Math.max(110,(innerHeight-el.offsetHeight)/2-60); scrollTo({top:Math.max(0,y),behavior:"instant"}); }
+    setTimeout(place,60); place();
+  }
+  function start(){
+    if(ov) return; i=0;
+    ov=document.createElement("div"); ov.className="tour"; ov.innerHTML='<div class="tour-hole"></div><div class="tour-tip" role="dialog" aria-live="polite"></div>';
+    document.body.appendChild(ov); hole=ov.firstChild; tip=ov.lastChild;
+    ov.addEventListener("click",function(e){ if(e.target===ov) done(); });
+    addEventListener("resize",place); show();
+  }
+  var b=document.getElementById("tourStart"); if(b) b.onclick=start;
+  var seen=false; try{ seen=localStorage.getItem("sprk_tour")==="1"; }catch(e){}
+  if(!seen) setTimeout(function(){ var c=0; try{ c=Object.keys(JSON.parse(localStorage.getItem("sprk26")||"{}").cart||{}).length; }catch(e){} if(!c && scrollY<200 && !(document.getElementById("sheet")||{}).classList.contains("open")) start(); }, 3500);
 })();
 </script>
 </body>
