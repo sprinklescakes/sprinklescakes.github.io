@@ -922,7 +922,7 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
 
 (function bigSnow(){
   if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var F='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9.5 3.8L12 6.2l2.5-2.4M9.5 20.2L12 17.8l2.5 2.4M3.6 10.1l3.3.9-.9 3.3M20.4 10.1l-3.3.9.9 3.3M3.6 13.9l3.3-.9M20.4 13.9l-3.3-.9"/></svg>';
+  var F='<svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(0)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(60)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(120)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(180)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(240)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(300)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><circle r="6"/></svg>';
   var live=0, MAX=3;
   function spawn(){
     if(!document.hidden && live<MAX){
