@@ -46,7 +46,8 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.08;text-wrap:balance;
 .wrap{max-width:1180px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
 .label{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
 .label.g{color:var(--green)}
-.num{font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:lining-nums tabular-nums}
+.price,.oid,.count b,h1,h2,h3{font-variant-numeric:lining-nums}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 [hidden]{display:none!important}
 
@@ -223,7 +224,9 @@ footer small{opacity:.75}
 .line .t small{display:block;color:var(--ink-2)}
 .sum{display:flex;justify-content:space-between;gap:12px;margin:6px 0;font-size:15px}
 .sum b{font-size:18px}
-.note{font-size:14px;color:var(--ink-2);background:var(--white);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px;display:flex;gap:10px}
+.note{font-size:14px;color:var(--ink-2);background:var(--white);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px;display:block}
+.note:has(> svg){display:flex;gap:10px}
+.note b{white-space:nowrap}
 .note.green{color:var(--green);background:var(--green-soft);border-color:transparent;font-weight:600}
 .fld{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .fld label,.lg{font-weight:600;font-size:15px}
