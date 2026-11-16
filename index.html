@@ -15,6 +15,7 @@
 <meta name="theme-color" content="#6E1423">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
+<link rel="preload" as="image" href="img/rebecca_plate.webp?v=7fcbf835" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700;1,800&display=swap">
@@ -390,10 +391,18 @@ footer small{opacity:.75}
 .xh-ic svg{display:block}
 
 
-.bigflake{position:fixed;top:-90px;z-index:40;pointer-events:none;color:#fff;filter:drop-shadow(0 1px 2px rgba(74,13,24,.35)) drop-shadow(0 0 6px rgba(74,13,24,.12));opacity:0;will-change:transform;animation:bfall linear forwards}
-.bigflake svg{display:block;width:100%;height:100%;animation:bspin linear infinite}
-@keyframes bfall{0%{transform:translate3d(0,0,0);opacity:0}8%{opacity:var(--o)}85%{opacity:var(--o)}100%{transform:translate3d(var(--dx),calc(100vh + 180px),0);opacity:0}}
-@keyframes bspin{to{transform:rotate(360deg)}}
+.bigflake{position:fixed;left:0;top:0;z-index:40;pointer-events:none;color:#fff;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 1px 2px rgba(74,13,24,.35))}
+.bigflake svg{display:block;width:100%;height:100%}
+
+.peek{position:fixed;z-index:39;pointer-events:none;width:96px;left:0;transform:translateX(-105%);animation:peekL 6.5s ease-in-out forwards}
+.peek.r{left:auto;right:0;transform:translateX(105%) scaleX(-1);animation-name:peekR}
+.peek svg{display:block;width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(43,10,18,.25))}
+.peek .pk-arm{transform-origin:78% 62%;animation:pkwave .7s ease-in-out 1.2s 5 alternate}
+@keyframes peekL{0%{transform:translateX(-105%) rotate(0)}18%,78%{transform:translateX(-30%) rotate(12deg)}100%{transform:translateX(-105%) rotate(0)}}
+@keyframes peekR{0%{transform:translateX(105%) scaleX(-1)}18%,78%{transform:translateX(30%) scaleX(-1) rotate(12deg)}100%{transform:translateX(105%) scaleX(-1)}}
+@keyframes pkwave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
+@media (min-width:900px){.peek{width:130px}}
+@media (prefers-reduced-motion:reduce){.peek{display:none}}
 @media (prefers-reduced-motion:reduce){.bigflake{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -430,7 +439,7 @@ footer small{opacity:.75}
    <svg class="xh-flake" style="right:6%;top:12%;width:22px;color:#D9B77E" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></g></svg>
    <svg class="xh-flake" style="left:30%;top:6%;width:16px" viewBox="0 0 24 24"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#D9B77E"/></svg>
    <svg class="xh-flake" style="right:24%;top:4%;width:12px" viewBox="0 0 24 24"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#F4EFE6"/></svg>
-   <img class="xh-chef" src="img/rebecca_plate.webp?v=fda89719" width="720" height="752" fetchpriority="high" alt="Chef Rebecca Corda holding a plate of her Christmas sweets">
+   <img class="xh-chef" src="img/rebecca_plate.webp?v=7fcbf835" width="720" height="752" fetchpriority="high" alt="Chef Rebecca Corda holding a plate of her Christmas sweets">
    <svg class="xh-holly" style="right:-1%;top:34%;width:84px;transform:rotate(28deg)" viewBox="0 0 100 70" aria-hidden="true"><path d="M50 40 C38 18 18 22 6 10 C14 16 20 6 28 12 C30 2 40 8 44 2 C46 18 58 30 50 40Z" fill="#2E6B4F"/><path d="M50 40 C62 18 82 22 94 10 C86 16 80 6 72 12 C70 2 60 8 56 2 C54 18 42 30 50 40Z" fill="#3F8763"/><circle cx="43" cy="44" r="7" fill="#C8202F"/><circle cx="57" cy="45" r="7" fill="#B3122B"/><circle cx="50" cy="54" r="7" fill="#D4283A"/><circle cx="41" cy="42" r="2" fill="#fff" opacity=".6"/></svg>
    <div class="xh-tag"><span class="xh-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4EFE6" stroke-width="2" stroke-linecap="round"><path d="M6 13.9A4 4 0 0 1 7 6a5 5 0 0 1 10 0 4 4 0 0 1 1 7.9V21H6z"/><path d="M6 17h12"/></svg></span><span><b>Chef Rebecca Corda</b>Made fresh in her kitchen</span></div>
   </div>
@@ -541,7 +550,7 @@ footer small{opacity:.75}
 <script>
 (function(){
 "use strict";
-var IMG = {"bauble": "img/bauble.webp?v=84ac5e2a", "choctarts": "img/choctarts.webp?v=a0496dfa", "coconutice": "img/coconutice.webp?v=825f6e0c", "coconuttarts": "img/coconuttarts.webp?v=e6c4a260", "cookies_mix": "img/cookies_mix.webp?v=e3e3556e", "cookies_reindeer": "img/cookies_reindeer.webp?v=43ca4ce7", "cookies_tree": "img/cookies_tree.webp?v=f282027b", "guava": "img/guava.webp?v=b4ee02db", "kulkuls": "img/kulkuls.webp?v=13d46411", "logo_color": "img/logo_color.webp?v=d792e80c", "logo_color_whitetext": "img/logo_color_whitetext.webp?v=3e7745c7", "marzipan": "img/marzipan.webp?v=7d690b72", "milkcream": "img/milkcream.webp?v=3c635063", "nevries_rose": "img/nevries_rose.webp?v=d3a0a4ca", "reindeer": "img/reindeer.webp?v=dfce2591", "rumsquare": "img/rumsquare.webp?v=8fed53cc", "sweets_mix": "img/sweets_mix.webp?v=5456ed5c", "bow": "img/bow.webp?v=3344814b", "s_neureos": "img/s_neureos.webp?v=f58e66d0", "s_guava": "img/s_guava.webp?v=69e7bc7c", "p_marzipan": "img/p_marzipan.webp?v=b910f84f", "p_snowflake": "img/p_snowflake.webp?v=baaf44f7", "p_kulkul": "img/p_kulkul.webp?v=a521b335", "s_shank": "img/s_shank.webp?v=4e01757c", "p_cice": "img/p_cice.webp?v=47568056", "p_nankhatai": "img/p_nankhatai.webp?v=35e5ee82", "s_rose": "img/s_rose.webp?v=e475da9b", "p_milkcream": "img/p_milkcream.webp?v=b4cf9032", "p_santa": "img/p_santa.webp?v=351365d1", "p_guava": "img/p_guava.webp?v=48c10615", "p_bombs": "img/p_bombs.webp?v=f5dc288d", "p_neureos": "img/p_neureos.webp?v=83caf044", "s_kulkul": "img/s_kulkul.webp?v=214fe2b4", "s_bombs": "img/s_bombs.webp?v=3568cfed", "s_marzipan": "img/s_marzipan.webp?v=096c3cde", "p_datewal": "img/p_datewal.webp?v=e6025672", "s_datewal": "img/s_datewal.webp?v=48c4ca97", "rebecca_plate": "img/rebecca_plate.webp?v=fda89719", "s_baath": "img/s_baath.webp?v=5499f3bf", "p_baath": "img/p_baath.webp?v=b31ac2b7", "p_shank": "img/p_shank.webp?v=be270e27", "p_macarons": "img/p_macarons.webp?v=c8511ffd", "p_reindeer": "img/p_reindeer.webp?v=a6073b8f", "chef_smile": "img/chef_smile.webp?v=cdef43e0", "p_tree": "img/p_tree.webp?v=8b1e6e91", "p_ginger": "img/p_ginger.webp?v=af2b651a", "s_cice": "img/s_cice.webp?v=ed635c3d", "p_rumcake": "img/p_rumcake.webp?v=50a5fcb5", "p_rose": "img/p_rose.webp?v=c6c130df", "chef_table": "img/chef_table.webp?v=efad1b4a", "p_cotart": "img/p_cotart.webp?v=a858284c", "chef_face": "img/chef_face.webp?v=04d43a50", "s_milkcream": "img/s_milkcream.webp?v=458933fc", "s_nankhatai": "img/s_nankhatai.webp?v=1387287b"};
+var IMG = {"bauble": "img/bauble.webp?v=84ac5e2a", "choctarts": "img/choctarts.webp?v=a0496dfa", "coconutice": "img/coconutice.webp?v=825f6e0c", "coconuttarts": "img/coconuttarts.webp?v=e6c4a260", "cookies_mix": "img/cookies_mix.webp?v=e3e3556e", "cookies_reindeer": "img/cookies_reindeer.webp?v=43ca4ce7", "cookies_tree": "img/cookies_tree.webp?v=f282027b", "guava": "img/guava.webp?v=b4ee02db", "kulkuls": "img/kulkuls.webp?v=13d46411", "logo_color": "img/logo_color.webp?v=d792e80c", "logo_color_whitetext": "img/logo_color_whitetext.webp?v=3e7745c7", "marzipan": "img/marzipan.webp?v=7d690b72", "milkcream": "img/milkcream.webp?v=3c635063", "nevries_rose": "img/nevries_rose.webp?v=d3a0a4ca", "reindeer": "img/reindeer.webp?v=dfce2591", "rumsquare": "img/rumsquare.webp?v=8fed53cc", "sweets_mix": "img/sweets_mix.webp?v=5456ed5c", "bow": "img/bow.webp?v=3344814b", "s_neureos": "img/s_neureos.webp?v=f58e66d0", "s_guava": "img/s_guava.webp?v=69e7bc7c", "p_marzipan": "img/p_marzipan.webp?v=b910f84f", "p_snowflake": "img/p_snowflake.webp?v=baaf44f7", "p_kulkul": "img/p_kulkul.webp?v=a521b335", "s_shank": "img/s_shank.webp?v=4e01757c", "p_cice": "img/p_cice.webp?v=47568056", "p_nankhatai": "img/p_nankhatai.webp?v=35e5ee82", "s_rose": "img/s_rose.webp?v=e475da9b", "p_milkcream": "img/p_milkcream.webp?v=b4cf9032", "p_santa": "img/p_santa.webp?v=351365d1", "p_guava": "img/p_guava.webp?v=48c10615", "p_bombs": "img/p_bombs.webp?v=f5dc288d", "p_neureos": "img/p_neureos.webp?v=83caf044", "s_kulkul": "img/s_kulkul.webp?v=214fe2b4", "s_bombs": "img/s_bombs.webp?v=3568cfed", "s_marzipan": "img/s_marzipan.webp?v=096c3cde", "p_datewal": "img/p_datewal.webp?v=e6025672", "s_datewal": "img/s_datewal.webp?v=48c4ca97", "rebecca_plate": "img/rebecca_plate.webp?v=7fcbf835", "s_baath": "img/s_baath.webp?v=5499f3bf", "p_baath": "img/p_baath.webp?v=b31ac2b7", "p_shank": "img/p_shank.webp?v=be270e27", "p_macarons": "img/p_macarons.webp?v=c8511ffd", "p_reindeer": "img/p_reindeer.webp?v=a6073b8f", "chef_smile": "img/chef_smile.webp?v=cdef43e0", "p_tree": "img/p_tree.webp?v=8b1e6e91", "p_ginger": "img/p_ginger.webp?v=af2b651a", "s_cice": "img/s_cice.webp?v=ed635c3d", "p_rumcake": "img/p_rumcake.webp?v=50a5fcb5", "p_rose": "img/p_rose.webp?v=c6c130df", "chef_table": "img/chef_table.webp?v=efad1b4a", "p_cotart": "img/p_cotart.webp?v=0e6318df", "chef_face": "img/chef_face.webp?v=04d43a50", "s_milkcream": "img/s_milkcream.webp?v=458933fc", "s_nankhatai": "img/s_nankhatai.webp?v=1387287b"};
 var WA = "918087800535";
 var CFG = {closeAt:"2026-12-13T23:59:59+05:30", firstDeliveryDate:"2026-12-20", lastDeliveryDate:"2026-12-24", upiId:"rebeccacorda14-3@okaxis", upiName:"Rebecca Corda", soldOut:[], fullDates:[], pickupInfo:"Pickup address and timings will be shared on WhatsApp."};
 var API = "https://script.google.com/macros/s/AKfycbyPiyZia6992mpGfEQj4Ehb10d-bnhDlb0fQqJqQ_0nignIbXRO0fxc4UVapH_EdLeK/exec";
@@ -914,7 +923,7 @@ function upiUrl(amount){ return "upi://pay?pa="+encodeURIComponent(CFG.upiId)+"&
 var qrLoading = null;
 function withQR(cb){ if(window.QRCode) return cb(); if(!qrLoading){ qrLoading = []; var sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"; sc.onload = function(){ qrLoading.forEach(function(f){ f(); }); }; document.head.appendChild(sc); } qrLoading.push(cb); }
 function drawQR(el, text){ if(!el) return; withQR(function(){ el.innerHTML = ""; try{ new QRCode(el, {text:text, width:180, height:180, colorDark:"#2B1B17", colorLight:"#ffffff", correctLevel: QRCode.CorrectLevel.M}); }catch(e){} }); }
-function payInfo(){ document.querySelectorAll(".upiTxt").forEach(function(e){ e.textContent = CFG.upiId; }); $("upiOpen").href = upiUrl(); drawQR($("qrMain"), upiUrl()); }
+function payInfo(){ document.querySelectorAll(".upiTxt").forEach(function(e){ e.textContent = CFG.upiId; }); $("upiOpen").href = upiUrl(); if(!$("pay").hidden) drawQR($("qrMain"), upiUrl()); }
 function boot(){ snow(); countdown(); setInterval(countdown, 30000); renderMenu(); sync(); payInfo(); }
 boot();
 if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[k] !== "" && c[k] != null) CFG[k] = c[k];
@@ -924,20 +933,44 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
 (function bigSnow(){
   if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var F='<svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(0)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(60)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(120)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(180)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(240)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(300)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><circle r="6"/></svg>';
-  var live=0, MAX=3, zi=Math.floor(Math.random()*4);
+  var flakes=[], MAX=9, zi=Math.floor(Math.random()*4), wind=0, windT=0, gust=0, last=0, next=1200, running=false;
   function spawn(){
-    if(!document.hidden && live<MAX){
-      var d=document.createElement("div"), s=12+Math.pow(Math.random(),1.3)*26, t=11+Math.random()*7;
-      d.className="bigflake"; d.innerHTML=F;
-      zi=(zi+1+Math.floor(Math.random()*2))%4; var lx=zi*25+Math.random()*22;
-      d.style.cssText="left:"+lx+"vw;width:"+s+"px;height:"+s+"px;animation-duration:"+t+"s;--dx:"+((Math.random()*2-1)*90)+"px;--o:"+(0.75+Math.random()*0.25);
-      d.firstChild.style.animationDuration=(8+Math.random()*10)+"s";
-      live++; document.body.appendChild(d);
-      setTimeout(function(){ d.remove(); live--; }, t*1000+200);
-    }
-    setTimeout(spawn, 2500+Math.random()*4500);
+    var rr=Math.random(), s=rr<.3?10:rr<.55?14:rr<.75?19:rr<.9?26:34, d=document.createElement("div");
+    zi=(zi+1+Math.floor(Math.random()*2))%4;
+    d.className="bigflake"; d.innerHTML=F; d.style.width=d.style.height=s+"px";
+    document.body.appendChild(d);
+    flakes.push({el:d, x:(zi*25+Math.random()*22)/100*innerWidth, y:-60, s:s, vy:28+Math.random()*26+s*0.4, ph:Math.random()*6.28, sw:8+Math.random()*14, r:Math.random()*360, vr:(Math.random()*2-1)*30, o:(s<16?0.6:0.78)+Math.random()*0.22, depth:0.6+s/38});
   }
-  setTimeout(spawn, 1200);
+  function tick(t){
+    if(!last) last=t; var dt=Math.min(0.05,(t-last)/1000); last=t;
+    windT+=dt; if(windT>gust){ windT=0; gust=4+Math.random()*6; wind=(Math.random()*2-1)*16; }
+    var w=wind*Math.min(1,windT/2.5);
+    next-=dt*1000; if(next<=0 && flakes.length<MAX && !document.hidden){ spawn(); next=500+Math.random()*1300; }
+    for(var k=flakes.length-1;k>=0;k--){ var f=flakes[k];
+      f.y+=f.vy*dt; f.ph+=dt*0.9; f.x+=(w*f.depth)*dt; f.r+=f.vr*dt+w*0.15*dt;
+      var x=f.x+Math.sin(f.ph)*f.sw, H=innerHeight;
+      var op=f.y<40?Math.max(0,f.y+60)/100*f.o:(f.y>H-80?Math.max(0,(H+60-f.y)/140)*f.o:f.o);
+      f.el.style.transform="translate3d("+x.toFixed(1)+"px,"+f.y.toFixed(1)+"px,0) rotate("+f.r.toFixed(1)+"deg)"; f.el.style.opacity=op.toFixed(2);
+      if(f.y>H+60 || x<-80 || x>innerWidth+80){ f.el.remove(); flakes.splice(k,1); }
+    }
+    requestAnimationFrame(tick);
+  }
+  function start(){ if(!running){ running=true; requestAnimationFrame(tick); } }
+  if(document.readyState==="complete") setTimeout(start,800); else addEventListener("load",function(){ setTimeout(start,800); });
+})();
+
+(function peekers(){
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var P=["<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g class=\"pk-arm\"><path d=\"M84 92 L112 70 M104 76 L110 62 M104 76 L118 78\" stroke=\"#6B4423\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/></g><circle cx=\"60\" cy=\"118\" r=\"38\" fill=\"#fff\" stroke=\"#D9D2C5\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"58\" r=\"28\" fill=\"#fff\" stroke=\"#D9D2C5\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"108\" r=\"3.5\" fill=\"#2B1B17\"/><circle cx=\"60\" cy=\"122\" r=\"3.5\" fill=\"#2B1B17\"/><circle cx=\"60\" cy=\"136\" r=\"3.5\" fill=\"#2B1B17\"/><path d=\"M34 80 Q60 92 86 80 L86 89 Q60 101 34 89Z\" fill=\"#C21D30\"/><path d=\"M70 86 L78 108 L68 108 L64 90Z\" fill=\"#A3172A\"/><path d=\"M38 34 L82 34 L82 38 L38 38Z\" fill=\"#1F1F1F\"/><rect x=\"44\" y=\"10\" width=\"32\" height=\"26\" rx=\"3\" fill=\"#1F1F1F\"/><rect x=\"44\" y=\"28\" width=\"32\" height=\"5\" fill=\"#C21D30\"/><circle cx=\"50\" cy=\"54\" r=\"3.2\" fill=\"#2B1B17\"/><circle cx=\"70\" cy=\"54\" r=\"3.2\" fill=\"#2B1B17\"/><path d=\"M60 60 L80 65 L60 66Z\" fill=\"#F08A24\"/><path d=\"M48 70 Q60 77 72 70\" stroke=\"#2B1B17\" stroke-width=\"2.5\" fill=\"none\" stroke-linecap=\"round\" stroke-dasharray=\"0.5 5\"/><circle cx=\"45\" cy=\"63\" r=\"4\" fill=\"#F7B5B5\" opacity=\".7\"/><circle cx=\"75\" cy=\"63\" r=\"4\" fill=\"#F7B5B5\" opacity=\".7\"/></svg>","<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g class=\"pk-arm\"><path d=\"M86 112 L106 82\" stroke=\"#C21D30\" stroke-width=\"12\" stroke-linecap=\"round\"/><rect x=\"99\" y=\"66\" width=\"16\" height=\"9\" rx=\"4\" fill=\"#fff\" transform=\"rotate(-30 107 70)\"/><circle cx=\"110\" cy=\"62\" r=\"9\" fill=\"#1F4D3A\"/></g><path d=\"M22 160 Q24 112 60 108 Q96 112 98 160Z\" fill=\"#C21D30\"/><rect x=\"55\" y=\"112\" width=\"10\" height=\"48\" fill=\"#fff\" opacity=\".9\"/><circle cx=\"60\" cy=\"70\" r=\"30\" fill=\"#F2C7A5\"/><path d=\"M28 74 Q30 120 60 124 Q90 120 92 74 Q84 92 60 92 Q36 92 28 74Z\" fill=\"#fff\"/><path d=\"M42 84 Q51 78 60 84 Q69 78 78 84 Q69 90 60 86 Q51 90 42 84Z\" fill=\"#fff\" stroke=\"#E6DED2\" stroke-width=\"1\"/><circle cx=\"60\" cy=\"76\" r=\"5.5\" fill=\"#E8848C\"/><circle cx=\"49\" cy=\"66\" r=\"3.2\" fill=\"#2B1B17\"/><circle cx=\"71\" cy=\"66\" r=\"3.2\" fill=\"#2B1B17\"/><path d=\"M44 58 Q49 55 54 58 M66 58 Q71 55 76 58\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"41\" cy=\"74\" r=\"5\" fill=\"#F29A9A\" opacity=\".6\"/><circle cx=\"79\" cy=\"74\" r=\"5\" fill=\"#F29A9A\" opacity=\".6\"/><path d=\"M28 52 Q36 14 70 16 Q96 20 100 46 L88 40 Q80 26 64 26 Q40 30 30 52Z\" fill=\"#C21D30\"/><path d=\"M26 50 Q60 38 94 50 Q95 57 94 60 Q60 48 26 60 Q25 55 26 50Z\" fill=\"#fff\"/><circle cx=\"102\" cy=\"46\" r=\"9\" fill=\"#fff\"/></svg>"], k=Math.floor(Math.random()*2);
+  function go(){
+    if(!document.hidden && !document.querySelector(".peek") && !(document.getElementById("sheet")&&document.getElementById("sheet").classList.contains("open"))){
+      var d=document.createElement("div"); d.className="peek"+(Math.random()<.5?" r":""); d.innerHTML=P[k]; k=1-k;
+      d.style.bottom=(14+Math.random()*46)+"vh"; document.body.appendChild(d);
+      setTimeout(function(){ d.remove(); }, 6800);
+    }
+    setTimeout(go, 16000+Math.random()*20000);
+  }
+  setTimeout(go, 7000+Math.random()*6000);
 })();
 </script>
 </body>
