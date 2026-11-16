@@ -410,7 +410,8 @@ footer small{opacity:.75}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .tour{position:fixed;inset:0;z-index:90;pointer-events:none}
-.tour-hole{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(30,6,12,.6);transition:all .3s ease;pointer-events:none;outline:3px solid #D9B77E;outline-offset:3px}
+.tour-dim{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.tour-hole{position:fixed;border-radius:18px;transition:all .3s ease;pointer-events:none;outline:3px solid #D9B77E;outline-offset:3px}
 .tour-tip{pointer-events:auto;position:fixed;left:16px;right:16px;max-width:380px;margin:0 auto;background:#FFFDF8;color:var(--ink);border-radius:18px;padding:14px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:top .3s ease}
 .tour-tip .st{font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
 .tour-tip h4{margin:4px 0 6px;font:700 19px var(--display);color:var(--burg-2)}
@@ -421,7 +422,7 @@ footer small{opacity:.75}
 .tour-tip .tskip{background:none;color:#7a6a64;padding:0 6px}
 .tour-tip .tnext{background:#EFE7DA;color:var(--burg-2)}
 .tourbtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--green);color:var(--green);background:none;border-radius:999px;min-height:44px;padding:0 18px;font:600 15px var(--body);cursor:pointer}
-.tour-hover{position:fixed;border-radius:14px;outline:2px dashed #D9B77E;outline-offset:2px;background:rgba(255,253,248,.10);pointer-events:none;transition:all .12s ease;opacity:0}
+.tour-hover{position:fixed;border-radius:18px;outline:3px solid #D9B77E;outline-offset:3px;pointer-events:none;transition:all .12s ease;opacity:0}
 </style>
 </head>
 <body>
@@ -1002,18 +1003,21 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
     {sel:"#n1", t:"Check your items", p:"Change quantities if you like, then tap this button to continue.", until:"#df"},
     {sel:"#n2", t:"Fill your details", p:"Enter your name and WhatsApp number, choose Pickup or Delivery, a date (20 to 24 Dec) and a time. Then tap Review order.", until:"#place"},
     {sel:"#place", t:"Place your order", p:"Tap Place order on WhatsApp. WhatsApp opens with your order ready, just press Send. Rebecca confirms and shares payment details.", click:1, last:1}
-  ], i=0, ov, hole, tip, poll, hov;
+  ], i=0, ov, hole, tip, poll, hov, dim, HR=null, TR=null;
+  function rr(r,p){ if(!r) return ""; var x=r.left-p,y=r.top-p,w=r.width+2*p,h=r.height+2*p,c=Math.min(18,w/2,h/2); return "M"+(x+c)+","+y+"h"+(w-2*c)+"a"+c+","+c+" 0 0 1 "+c+","+c+"v"+(h-2*c)+"a"+c+","+c+" 0 0 1 -"+c+","+c+"h-"+(w-2*c)+"a"+c+","+c+" 0 0 1 -"+c+",-"+c+"v-"+(h-2*c)+"a"+c+","+c+" 0 0 1 "+c+",-"+c+"z"; }
+  function drawDim(){ if(!dim) return; var W=innerWidth,H=innerHeight; dim.setAttribute("d","M0,0H"+W+"V"+H+"H0z"+rr(TR,6)+(HR?rr(HR,4):"")); }
   var HSEL="button,a,.cattile,.card,.hcard,input,label,select,textarea,.tabs a,.how-list li";
-  function onMove(e){ if(!ov||!hov) return; var t=e.target.closest&&e.target.closest(HSEL); if(!t||ov.contains(t)){ hov.style.opacity=0; return; } var r=t.getBoundingClientRect(); hov.style.cssText="opacity:1;top:"+(r.top-4)+"px;left:"+(r.left-4)+"px;width:"+(r.width+8)+"px;height:"+(r.height+8)+"px"; }
+  function onMove(e){ if(!ov||!hov) return; var t=e.target.closest&&e.target.closest(HSEL); if(!t||ov.contains(t)){ hov.style.opacity=0; if(HR){ HR=null; drawDim(); } return; } var r=t.getBoundingClientRect(); HR=r; drawDim(); hov.style.cssText="opacity:1;top:"+(r.top-4)+"px;left:"+(r.left-4)+"px;width:"+(r.width+8)+"px;height:"+(r.height+8)+"px"; }
   function done(){ try{ localStorage.setItem("sprk_tour","1"); }catch(e){} if(ov){ ov.remove(); ov=null; } clearInterval(poll); removeEventListener("resize",place); removeEventListener("scroll",place,true); document.removeEventListener("click",onClick,true); document.removeEventListener("mousemove",onMove,true); }
   function vis(el){ if(!el) return false; var r=el.getBoundingClientRect(); return r.width>0 && r.height>0; }
   function place(){
     if(!ov) return; var s=S[i], el=document.querySelector(s.sel), vh=innerHeight;
-    if(vis(el)){ var r=el.getBoundingClientRect(), pad=6;
+    if(vis(el)){ var r=el.getBoundingClientRect(), pad=6; TR=r;
       hole.style.cssText="top:"+(r.top-pad)+"px;left:"+(r.left-pad)+"px;width:"+(r.width+pad*2)+"px;height:"+(r.height+pad*2)+"px";
       var th=tip.offsetHeight, below=r.bottom+16;
       tip.style.top=((below+th<vh-8)?below:Math.max(8,r.top-th-16))+"px";
-    } else { hole.style.cssText="top:50%;left:50%;width:0;height:0"; tip.style.top=Math.max(16,(vh-tip.offsetHeight)/2)+"px"; }
+    } else { TR=null; hole.style.cssText="top:50%;left:50%;width:0;height:0"; tip.style.top=Math.max(16,(vh-tip.offsetHeight)/2)+"px"; }
+    drawDim();
   }
   function show(){
     var s=S[i], el=document.querySelector(s.sel);
@@ -1028,8 +1032,8 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
   function onClick(e){ var s=S[i]; if(s.click && e.target.closest && e.target.closest(s.sel)){ if(s.last){ done(); return; } setTimeout(next,450); } }
   function start(){
     if(ov) return; i=0;
-    ov=document.createElement("div"); ov.className="tour"; ov.innerHTML='<div class="tour-hole"></div><div class="tour-hover"></div><div class="tour-tip" role="dialog" aria-live="polite"></div>';
-    document.body.appendChild(ov); hole=ov.firstChild; hov=ov.children[1]; tip=ov.lastChild; document.addEventListener("mousemove",onMove,true);
+    ov=document.createElement("div"); ov.className="tour"; ov.innerHTML='<svg class="tour-dim"><path fill="rgba(30,6,12,.6)" fill-rule="evenodd"/></svg><div class="tour-hole"></div><div class="tour-hover"></div><div class="tour-tip" role="dialog" aria-live="polite"></div>';
+    document.body.appendChild(ov); dim=ov.querySelector("path"); hole=ov.children[1]; hov=ov.children[2]; tip=ov.lastChild; document.addEventListener("mousemove",onMove,true);
     addEventListener("resize",place); addEventListener("scroll",place,true); document.addEventListener("click",onClick,true);
     poll=setInterval(function(){ var s=S[i]; if(s.until && vis(document.querySelector(s.until))) next(); else place(); },400);
     show();
