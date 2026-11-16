@@ -137,7 +137,7 @@ h1,h2,h3{font-family:var(--display);margin:0;line-height:1.08;text-wrap:balance;
 @media (min-width:700px){.hgrid{grid-template-columns:1fr 1fr}}
 @media (min-width:1100px){.hgrid{grid-template-columns:repeat(4,1fr)}.band{padding:34px 30px 30px}}
 .hcard{position:relative;display:flex;gap:12px;align-items:center;background:var(--white);color:var(--ink);border-radius:20px;padding:10px}
-.hcard .ph{width:96px;height:96px;border-radius:14px;object-fit:cover;flex:none}
+.hcard .ph{width:116px;height:auto;aspect-ratio:4/3;border-radius:14px;object-fit:cover;flex:none}
 .hcard .info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .hcard h3{font-size:18px;font-family:var(--body);font-weight:700;line-height:1.25}
 .hcard .price{font-size:22px}
@@ -226,7 +226,7 @@ footer small{opacity:.75}
 .sfoot{padding:12px var(--gr) calc(12px + env(safe-area-inset-bottom,0px)) var(--gl);border-top:1px solid var(--line);background:var(--cream)}
 .sfoot .two{display:grid;grid-template-columns:auto 1fr;gap:10px}
 .line{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
-.line img,.line .mini{width:64px;height:64px;border-radius:14px;object-fit:cover;flex:none}
+.line img,.line .mini{width:76px;height:57px;border-radius:14px;object-fit:cover;flex:none}
 .line .mini{background:var(--burg);display:flex;align-items:center;justify-content:center;color:#E7CC9A}.line .mini svg{width:30px}
 .line .t{flex:1;min-width:0}
 .line .t b{display:block;font-size:15px;line-height:1.3}
@@ -281,7 +281,7 @@ footer small{opacity:.75}
 @media (min-width:700px){.ins{left:50%;right:auto;bottom:auto;top:50%;width:460px;border-radius:28px;transform:translate(-50%,-40%);opacity:0;pointer-events:none;transition:opacity .2s, transform .25s}.ins.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}}
 .grab{width:44px;height:5px;border-radius:3px;background:var(--line);margin:10px auto 0}
 .ins .hd{display:flex;gap:14px;align-items:center;padding:14px var(--gr) 10px var(--gl);position:relative}
-.ins .hd img{width:110px;height:110px;border-radius:18px;object-fit:cover}
+.ins .hd img{width:128px;height:96px;border-radius:18px;object-fit:cover}
 .ins .hd h3{font-size:26px}
 .ins .x{position:absolute;right:var(--gr);top:6px}
 .ins ul{list-style:none;margin:0;padding:0 var(--gr) 10px var(--gl);overflow-y:auto}
@@ -303,17 +303,17 @@ footer small{opacity:.75}
 .bigtitle::before,.bigtitle::after{content:"";display:block;height:10px;margin:0 auto 14px;max-width:220px;background:repeating-linear-gradient(-45deg,var(--burg) 0 8px,#fff 8px 16px);border-radius:6px;border-bottom:2px solid var(--green)}
 .bigtitle::after{margin:18px auto 0}
 .cattiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
-.cattile{position:relative;display:block;border:0;padding:0;border-radius:20px;overflow:hidden;aspect-ratio:1/1;background:var(--burg-2);color:#fff;text-align:left;box-shadow:var(--shadow);transition:transform .2s ease}
+.cattile{position:relative;display:flex;flex-direction:column;border:0;padding:0;border-radius:20px;overflow:hidden;background:var(--burg-2);color:#fff;text-align:left;box-shadow:var(--shadow);transition:transform .2s ease}
 .cattile:active{transform:scale(.97)}
 @media (hover:hover){.cattile:hover{transform:translateY(-3px)}}
-.cattile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.cattile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,10,18,0) 35%,rgba(43,10,18,.85) 100%)}
-.cattile .ct{position:absolute;left:12px;right:12px;bottom:12px;z-index:1}
+.cattile img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;flex:none}
+.cattile::after{content:none}
+.cattile .ct{display:block;flex:1;padding:10px 12px 12px;background:var(--burg-2);border-top:3px solid var(--gold)}
 .cattile b{display:block;font-family:var(--display);font-size:21px;line-height:1.1}
 .cattile small{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:13px;font-weight:600;opacity:.95}
-.cattile.wide{grid-column:1/-1;aspect-ratio:2.1/1}
+.cattile.wide{grid-column:1/-1;flex-direction:row}.cattile.wide img{width:56%}.cattile.wide .ct{display:flex;flex-direction:column;justify-content:center;border-top:0;border-left:3px solid var(--gold)}
 .cattile.wide b{font-size:26px}
-@media (min-width:900px){.cattiles{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}.cattile.wide{grid-column:auto;aspect-ratio:1/1.15}.cattile{aspect-ratio:1/1.15}.cattile.wide b{font-size:21px}}
+@media (min-width:900px){.cattiles{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}.cattile.wide{grid-column:auto;flex-direction:column}.cattile.wide img{width:100%}.cattile.wide .ct{display:block;border-left:0;border-top:3px solid var(--gold)}.cattile.wide b{font-size:21px}}
 .tabs{margin:14px 0 6px}
 /* pay */
 .pay{padding-block:6px 24px;scroll-margin-top:90px}
@@ -536,7 +536,7 @@ footer small{opacity:.75}
 <script>
 (function(){
 "use strict";
-var IMG = {"bauble": "img/bauble.webp", "choctarts": "img/choctarts.webp", "coconutice": "img/coconutice.webp", "coconuttarts": "img/coconuttarts.webp", "cookies_mix": "img/cookies_mix.webp", "cookies_reindeer": "img/cookies_reindeer.webp", "cookies_tree": "img/cookies_tree.webp", "guava": "img/guava.webp", "kulkuls": "img/kulkuls.webp", "logo_color": "img/logo_color.webp", "logo_color_whitetext": "img/logo_color_whitetext.webp", "marzipan": "img/marzipan.webp", "milkcream": "img/milkcream.webp", "nevries_rose": "img/nevries_rose.webp", "reindeer": "img/reindeer.webp", "rumsquare": "img/rumsquare.webp", "sweets_mix": "img/sweets_mix.webp", "bow": "img/bow.webp", "s_neureos": "img/s_neureos.webp", "s_guava": "img/s_guava.webp", "p_marzipan": "img/p_marzipan.webp", "p_snowflake": "img/p_snowflake.webp", "p_kulkul": "img/p_kulkul.webp", "s_shank": "img/s_shank.webp", "p_cice": "img/p_cice.webp", "p_nankhatai": "img/p_nankhatai.webp", "s_rose": "img/s_rose.webp", "p_milkcream": "img/p_milkcream.webp", "p_santa": "img/p_santa.webp", "p_guava": "img/p_guava.webp", "p_bombs": "img/p_bombs.webp", "p_neureos": "img/p_neureos.webp", "s_kulkul": "img/s_kulkul.webp", "s_bombs": "img/s_bombs.webp", "s_marzipan": "img/s_marzipan.webp", "p_datewal": "img/p_datewal.webp", "s_datewal": "img/s_datewal.webp", "rebecca_plate": "img/rebecca_plate.webp", "s_baath": "img/s_baath.webp", "p_baath": "img/p_baath.webp", "p_shank": "img/p_shank.webp", "chef_smile": "img/chef_smile.webp", "p_tree": "img/p_tree.webp", "p_ginger": "img/p_ginger.webp", "s_cice": "img/s_cice.webp", "p_rose": "img/p_rose.webp", "chef_table": "img/chef_table.webp", "chef_face": "img/chef_face.webp", "s_milkcream": "img/s_milkcream.webp", "s_nankhatai": "img/s_nankhatai.webp"};
+var IMG = {"bauble": "img/bauble.webp", "choctarts": "img/choctarts.webp", "coconutice": "img/coconutice.webp", "coconuttarts": "img/coconuttarts.webp", "cookies_mix": "img/cookies_mix.webp", "cookies_reindeer": "img/cookies_reindeer.webp", "cookies_tree": "img/cookies_tree.webp", "guava": "img/guava.webp", "kulkuls": "img/kulkuls.webp", "logo_color": "img/logo_color.webp", "logo_color_whitetext": "img/logo_color_whitetext.webp", "marzipan": "img/marzipan.webp", "milkcream": "img/milkcream.webp", "nevries_rose": "img/nevries_rose.webp", "reindeer": "img/reindeer.webp", "rumsquare": "img/rumsquare.webp", "sweets_mix": "img/sweets_mix.webp", "bow": "img/bow.webp", "s_neureos": "img/s_neureos.webp", "s_guava": "img/s_guava.webp", "p_marzipan": "img/p_marzipan.webp", "p_snowflake": "img/p_snowflake.webp", "p_kulkul": "img/p_kulkul.webp", "s_shank": "img/s_shank.webp", "p_cice": "img/p_cice.webp", "p_nankhatai": "img/p_nankhatai.webp", "s_rose": "img/s_rose.webp", "p_milkcream": "img/p_milkcream.webp", "p_santa": "img/p_santa.webp", "p_guava": "img/p_guava.webp", "p_bombs": "img/p_bombs.webp", "p_neureos": "img/p_neureos.webp", "s_kulkul": "img/s_kulkul.webp", "s_bombs": "img/s_bombs.webp", "s_marzipan": "img/s_marzipan.webp", "p_datewal": "img/p_datewal.webp", "s_datewal": "img/s_datewal.webp", "rebecca_plate": "img/rebecca_plate.webp", "s_baath": "img/s_baath.webp", "p_baath": "img/p_baath.webp", "p_shank": "img/p_shank.webp", "p_macarons": "img/p_macarons.webp", "chef_smile": "img/chef_smile.webp", "p_tree": "img/p_tree.webp", "p_ginger": "img/p_ginger.webp", "s_cice": "img/s_cice.webp", "p_rose": "img/p_rose.webp", "chef_table": "img/chef_table.webp", "chef_face": "img/chef_face.webp", "s_milkcream": "img/s_milkcream.webp", "s_nankhatai": "img/s_nankhatai.webp"};
 var WA = "918087800535";
 var CFG = {closeAt:"2026-12-13T23:59:59+05:30", firstDeliveryDate:"2026-12-20", lastDeliveryDate:"2026-12-24", upiId:"rebeccacorda14-3@okaxis", upiName:"Rebecca Corda", soldOut:[], fullDates:[], pickupInfo:"Pickup address and timings will be shared on WhatsApp."};
 var API = "https://script.google.com/macros/s/AKfycbyPiyZia6992mpGfEQj4Ehb10d-bnhDlb0fQqJqQ_0nignIbXRO0fxc4UVapH_EdLeK/exec";
@@ -553,10 +553,10 @@ var I_PLUS = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentCo
 var I_ERR = '<svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 6v8M12 17v1" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>';
 
 var CATS = [
-  {id:"hampers", tab:"Hampers", name:"Gift Hampers & Boxes", img:"cookies_reindeer"},
+  {id:"hampers", tab:"Hampers", name:"Gift Hampers & Boxes", img:"p_macarons"},
   {id:"sweets", tab:"Sweets", name:"Traditional Christmas Sweets", img:"p_marzipan"},
   {id:"cakes", tab:"Cakes & Desserts", name:"Cakes & Desserts", img:"p_datewal"},
-  {id:"cookies", tab:"Cookies", name:"Christmas Cookies", img:"cookies_mix"},
+  {id:"cookies", tab:"Cookies", name:"Christmas Cookies", img:"p_santa"},
   {id:"kits", tab:"Kits & Cocoa", name:"Kits & Cocoa Bombs", img:"p_bombs"}
 ];
 var SLIDES = [["p_guava","Guava Sweet"],["p_marzipan","Marzipan"],["cookies_mix","Christmas Cookies"],["p_milkcream","Milk Cream"],["p_cice","Coconut Ice Balls"],["p_kulkul","Kulkuls"],["p_datewal","Date & Walnut Cake"],["p_bombs","Cocoa Bombs"],["p_neureos","Neureos / Karanji"],["p_rose","Rose Cookies"]];
@@ -580,7 +580,7 @@ var ITEMS = [
   {id:"datewal", cat:"cakes", sub:"Cakes", name:"Date & Walnut Cake", unit:"400 g", price:450, img:"p_datewal", label:"₹450"},
   {id:"rumcake", cat:"cakes", sub:"Cakes", name:"Rum Cake", price:1400, label:"₹1,400", tags:["rum"]},
   {id:"rumsq", cat:"cakes", sub:"Cakes", name:"Rum Squares", price:150, label:"₹150", img:"rumsquare", tags:["rum"]},
-  {id:"macarons", cat:"cakes", sub:"Tarts & bites", name:"Macarons", price:80, label:"₹80", tags:["u100"]},
+  {id:"macarons", cat:"cakes", sub:"Tarts & bites", name:"Macarons", price:80, label:"₹80", tags:["u100"], img:"p_macarons"},
   {id:"choctart", cat:"cakes", sub:"Tarts & bites", name:"Dark Chocolate & Salted Caramel Tarts", price:135, label:"₹135", img:"choctarts"},
   {id:"cotart", cat:"cakes", sub:"Tarts & bites", name:"Coconut Tarts", price:80, label:"₹80", img:"coconuttarts", tags:["u100"]},
   {id:"bauble", cat:"cookies", name:"Bauble Name Cookies", price:150, label:"₹150", img:"bauble", tags:["gift","kids"], personal:true},
