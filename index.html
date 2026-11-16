@@ -788,13 +788,13 @@ function render(){
       + '<div class="box"><h4>Payment</h4>'+(dl ? '<div class="note" style="margin:6px 0 0"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.5" stroke-linecap="round"/></svg><span>Delivery charges depend on your area. Rebecca will confirm availability and the final total on WhatsApp, then you pay by UPI.</span></div>'
         : '<div class="choice" role="radiogroup" aria-label="Payment" style="margin:8px 0 0"><label><input type="radio" name="pay" value="now"'+(payNow?" checked":"")+'>Pay now (UPI)<span class="ck">✓</span></label><label><input type="radio" name="pay" value="later"'+(!payNow?" checked":"")+'>Pay at pickup<span class="ck">✓</span></label></div>'
           + '<div class="upi" id="upiBox"'+(payNow?"":" hidden")+'><div class="paybox"><div class="qr" id="qrPay"></div><div class="help">Scan with any UPI app, or tap the button on your phone</div><a class="btn btn-green block" id="upiA" href="'+esc(upiUrl(subtotal()))+'">Pay '+rupee(subtotal())+' with UPI app</a><div class="upiid" style="width:100%"><span>UPI ID</span><b class="upiTxt">'+esc(CFG.upiId)+'</b><button type="button" class="cpy" data-copy="upi">Copy</button></div></div>'
-          + fld("txn","UPI transaction ID (after paying)",'<input id="txn" inputmode="numeric" value="'+v("txn")+'">',"Or send the payment screenshot on WhatsApp. Rebecca checks it before marking your order paid.") + '</div>') + '</div>'
+          + fld("txn","UPI transaction ID (12 digits) *",'<input id="txn" inputmode="numeric" maxlength="14" placeholder="e.g. 431234567890" value="'+v("txn")+'">',"Pay first, then copy the 12-digit UPI Ref / UTR number from your UPI app. Rebecca checks it before confirming your order. Not paid yet? Choose Pay at pickup.") + '</div>') + '</div>'
       + '<label class="chk"><input type="checkbox" id="agree"'+(form.agree?" checked":"")+'><span>I understand that orders once confirmed cannot be cancelled.</span></label><span class="err" id="e-agree" hidden></span>'
       + (LIVE ? '' : '<div class="note" style="font-size:13px">Preview mode: this copy is not connected to the order sheet.</div>');
     F.innerHTML = '<div class="two"><button class="btn btn-cream" type="button" id="b3">Back</button><button class="btn btn-burg" type="button" id="place">Place order</button></div>';
     B.querySelectorAll("[data-edit]").forEach(function(b){ b.onclick = function(){ step = +b.getAttribute("data-edit"); render(); }; });
     B.querySelectorAll("input[name=pay]").forEach(function(r){ r.onchange = function(){ form.pay = r.value; $("upiBox").hidden = r.value==="later"; save(); }; });
-    if($("txn")) $("txn").oninput = function(e){ form.txn = e.target.value; save(); };
+    if($("txn")) $("txn").oninput = function(e){ form.txn = e.target.value; if($("e-txn")) $("e-txn").hidden = true; save(); };
     $("agree").onchange = function(e){ form.agree = e.target.checked; $("e-agree").hidden = true; save(); };
     $("b3").onclick = function(){ step = 2; render(); };
     $("place").onclick = place;
@@ -832,12 +832,14 @@ function buildMsg(id, items, total){
     ["", "Items total: " + rupee(total),
      dl ? "Delivery: " + form.addr + ", " + form.area + (form.landmark?" (near "+form.landmark+")":"") + ". Please confirm the delivery charge." : "Pickup",
      "Date: " + niceDate(form.date) + " · " + form.slot, "Name: " + form.cname + " · " + form.cphone,
-     "Payment: " + (dl ? "after confirmation" : form.pay==="later" ? "at pickup" : "UPI" + (form.txn?" (txn "+form.txn+")":"")),
+     "Payment: " + (dl ? "after confirmation" : form.pay==="later" ? "at pickup" : "UPI paid, txn " + form.txn + " (please verify)"),
      form.notes ? "Notes: " + form.notes : ""]).filter(Boolean).join("\n");
 }
 var placing = false;
 function place(){
   if(placing) return;
+  var dlv = form.mode==="delivery";
+  if(!dlv && form.pay!=="later"){ var tx = String(form.txn||"").replace(/\s/g,""); if(!/^\d{12}$/.test(tx)){ var et = $("e-txn"); if(et){ et.hidden = false; et.innerHTML = I_ERR + "Pay first, then enter the 12-digit UPI transaction ID. Or choose Pay at pickup."; } if($("txn")){ $("txn").focus(); $("txn").scrollIntoView({block:"center"}); } return; } form.txn = tx; }
   if(!form.agree){ var e = $("e-agree"); e.hidden = false; e.innerHTML = I_ERR + "Please tick the box to continue."; $("agree").focus(); return; }
   placing = true; var btn = $("place"); btn.disabled = true; btn.innerHTML = '<span class="spin"></span>Placing order…';
   var items = Object.keys(cart).map(function(k){ return {id:k, name:byId[k].name, unit:byId[k].unit||"", qty:cart[k].qty, price:byId[k].price, note:cart[k].note||""}; });
