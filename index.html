@@ -411,8 +411,8 @@ footer small{opacity:.75}
 
 .tour{position:fixed;inset:0;z-index:90;pointer-events:none}
 .tour-dim{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
-.tour-hole{position:fixed;border-radius:18px;transition:all .3s ease;pointer-events:none;outline:3px solid #D9B77E;outline-offset:3px}
-.tour-tip{pointer-events:auto;position:fixed;left:16px;right:16px;max-width:380px;margin:0 auto;background:#FFFDF8;color:var(--ink);border-radius:18px;padding:14px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:top .3s ease}
+.tour-hole{position:fixed;border-radius:18px;pointer-events:none;transition:all .3s ease;box-shadow:0 0 0 3px #E2BF7E,0 0 22px 6px rgba(226,191,126,.85);animation:tglow 1.6s ease-in-out infinite}
+.tour-tip{pointer-events:auto;position:fixed;border:1px solid #E7D7BC;left:16px;right:16px;max-width:380px;margin:0 auto;background:#FFFDF8;color:var(--ink);border-radius:18px;padding:14px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:top .3s ease}
 .tour-tip .st{font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
 .tour-tip h4{margin:4px 0 6px;font:700 19px var(--display);color:var(--burg-2)}
 .tour-tip p{margin:0 0 12px;font-size:15px;line-height:1.45;color:#4a3a36}
@@ -422,7 +422,8 @@ footer small{opacity:.75}
 .tour-tip .tskip{background:none;color:#7a6a64;padding:0 6px}
 .tour-tip .tnext{background:#EFE7DA;color:var(--burg-2)}
 .tourbtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--green);color:var(--green);background:none;border-radius:999px;min-height:44px;padding:0 18px;font:600 15px var(--body);cursor:pointer}
-.tour-hover{position:fixed;border-radius:18px;outline:3px solid #D9B77E;outline-offset:3px;pointer-events:none;transition:all .12s ease;opacity:0}
+.tour-hover{position:fixed;border-radius:18px;pointer-events:none;transition:all .12s ease;opacity:0;box-shadow:0 0 0 3px #E2BF7E,0 0 18px 5px rgba(226,191,126,.7)}
+@keyframes tglow{50%{box-shadow:0 0 0 3px #F1D9A6,0 0 34px 12px rgba(226,191,126,.95)}}
 </style>
 </head>
 <body>
@@ -1032,7 +1033,7 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
   function onClick(e){ var s=S[i]; if(s.click && e.target.closest && e.target.closest(s.sel)){ if(s.last){ done(); return; } setTimeout(next,450); } }
   function start(){
     if(ov) return; i=0;
-    ov=document.createElement("div"); ov.className="tour"; ov.innerHTML='<svg class="tour-dim"><path fill="rgba(30,6,12,.6)" fill-rule="evenodd"/></svg><div class="tour-hole"></div><div class="tour-hover"></div><div class="tour-tip" role="dialog" aria-live="polite"></div>';
+    ov=document.createElement("div"); ov.className="tour"; ov.innerHTML='<svg class="tour-dim"><path fill="none"/></svg><div class="tour-hole"></div><div class="tour-hover"></div><div class="tour-tip" role="dialog" aria-live="polite"></div>';
     document.body.appendChild(ov); dim=ov.querySelector("path"); hole=ov.children[1]; hov=ov.children[2]; tip=ov.lastChild; document.addEventListener("mousemove",onMove,true);
     addEventListener("resize",place); addEventListener("scroll",place,true); document.addEventListener("click",onClick,true);
     poll=setInterval(function(){ var s=S[i]; if(s.until && vis(document.querySelector(s.until))) next(); else place(); },400);
