@@ -388,6 +388,12 @@ footer small{opacity:.75}
 .xh h1{color:#fff}.xh .snowc{z-index:1}
 .xh-ic svg{display:block}
 
+
+.bigflake{position:fixed;top:-90px;z-index:40;pointer-events:none;color:#C9A86A;opacity:0;will-change:transform;animation:bfall linear forwards}
+.bigflake svg{display:block;width:100%;height:100%;animation:bspin linear infinite}
+@keyframes bfall{0%{transform:translate3d(0,0,0);opacity:0}8%{opacity:var(--o)}85%{opacity:var(--o)}100%{transform:translate3d(var(--dx),calc(100vh + 180px),0);opacity:0}}
+@keyframes bspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.bigflake{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -912,6 +918,25 @@ function boot(){ snow(); countdown(); setInterval(countdown, 30000); renderMenu(
 boot();
 if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[k] !== "" && c[k] != null) CFG[k] = c[k];
   if(c.allergens) $("infoAllergens").textContent = c.allergens; if(c.freshness) $("infoFresh").textContent = c.freshness; countdown(); renderMenu(); sync(); payInfo(); } }, function(){}); }
+})();
+
+(function bigSnow(){
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var F='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9.5 3.8L12 6.2l2.5-2.4M9.5 20.2L12 17.8l2.5 2.4M3.6 10.1l3.3.9-.9 3.3M20.4 10.1l-3.3.9.9 3.3M3.6 13.9l3.3-.9M20.4 13.9l-3.3-.9"/></svg>';
+  var live=0, MAX=3;
+  function spawn(){
+    if(!document.hidden && live<MAX){
+      var d=document.createElement("div"), s=52+Math.random()*58, t=11+Math.random()*7;
+      d.className="bigflake"; d.innerHTML=F;
+      d.style.cssText="left:"+(4+Math.random()*88)+"vw;width:"+s+"px;height:"+s+"px;animation-duration:"+t+"s;--dx:"+((Math.random()*2-1)*90)+"px;--o:"+(0.4+Math.random()*0.25);
+      d.firstChild.style.animationDuration=(8+Math.random()*10)+"s";
+      if(Math.random()<.5) d.style.color="#E8DCC4";
+      live++; document.body.appendChild(d);
+      setTimeout(function(){ d.remove(); live--; }, t*1000+200);
+    }
+    setTimeout(spawn, 2500+Math.random()*4500);
+  }
+  setTimeout(spawn, 1200);
 })();
 </script>
 </body>
