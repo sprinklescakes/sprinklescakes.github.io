@@ -15,7 +15,7 @@
 <meta name="theme-color" content="#6E1423">
 <link rel="icon" type="image/png" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
-<link rel="preload" as="image" href="img/rebecca_plate.webp?v=6288cfff" fetchpriority="high">
+<link rel="preload" as="image" href="img/rebecca_plate.webp?v=92dc951e" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700;1,800&display=swap">
@@ -396,8 +396,11 @@ footer small{opacity:.75}
 
 .peek{position:fixed;left:0;width:0;height:0;z-index:39;pointer-events:none;transform:rotate(72deg)}
 .peek.r{left:auto;right:0;transform:rotate(-72deg)}
+.peek.b{top:auto!important;bottom:0;transform:rotate(0)}
+.peek.b .pk-b{animation-name:pkUp}
+@keyframes pkUp{0%{transform:translateY(105%)}18%,80%{transform:translateY(38%) rotate(-3deg)}50%{transform:translateY(36%) rotate(3deg)}100%{transform:translateY(105%)}}
 .peek .pk-b{position:absolute;left:-60px;bottom:0;width:120px;transform-origin:50% 100%;transform:translateY(105%);animation:pkIn 6.5s ease-in-out forwards}
-.peek svg{display:block;width:100%;height:auto;filter:drop-shadow(0 6px 10px rgba(43,10,18,.25))}
+.peek svg{display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 6px 10px rgba(43,10,18,.25))}
 .peek .pk-arm{transform-origin:70% 70%;animation:pkwave .7s ease-in-out 1.3s 5 alternate}
 @keyframes pkIn{0%{transform:translateY(105%) rotate(0)}16%{transform:translateY(34%) rotate(-6deg)}30%{transform:translateY(36%) rotate(5deg)}45%{transform:translateY(34%) rotate(-4deg)}62%{transform:translateY(35%) rotate(4deg)}80%{transform:translateY(34%) rotate(0)}100%{transform:translateY(105%) rotate(0)}}
 @keyframes pkwave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
@@ -405,6 +408,19 @@ footer small{opacity:.75}
 @media (prefers-reduced-motion:reduce){.peek{display:none}}
 @media (prefers-reduced-motion:reduce){.bigflake{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.tour{position:fixed;inset:0;z-index:90;pointer-events:none}
+.tour-hole{position:fixed;border-radius:18px;box-shadow:0 0 0 9999px rgba(30,6,12,.6);transition:all .3s ease;pointer-events:none;outline:3px solid #D9B77E;outline-offset:3px}
+.tour-tip{pointer-events:auto;position:fixed;left:16px;right:16px;max-width:380px;margin:0 auto;background:#FFFDF8;color:var(--ink);border-radius:18px;padding:14px 16px 12px;box-shadow:0 18px 40px rgba(0,0,0,.35);transition:top .3s ease}
+.tour-tip .st{font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+.tour-tip h4{margin:4px 0 6px;font:700 19px var(--display);color:var(--burg-2)}
+.tour-tip p{margin:0 0 12px;font-size:15px;line-height:1.45;color:#4a3a36}
+.tour-tip .tb{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tour-tip .dots{display:flex;gap:6px}.tour-tip .dots i{width:7px;height:7px;border-radius:50%;background:#E3D8C8}.tour-tip .dots i.on{background:var(--burg)}
+.tour-tip button{border:0;border-radius:999px;font:600 14px var(--body);min-height:42px;padding:0 14px;cursor:pointer}
+.tour-tip .tskip{background:none;color:#7a6a64;padding:0 6px}
+.tour-tip .tnext{background:#EFE7DA;color:var(--burg-2)}
+.tourbtn{margin-top:14px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--green);color:var(--green);background:none;border-radius:999px;min-height:44px;padding:0 18px;font:600 15px var(--body);cursor:pointer}
 </style>
 </head>
 <body>
@@ -439,7 +455,7 @@ footer small{opacity:.75}
    <svg class="xh-flake" style="right:6%;top:12%;width:22px;color:#D9B77E" viewBox="0 0 24 24"><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></g></svg>
    <svg class="xh-flake" style="left:30%;top:6%;width:16px" viewBox="0 0 24 24"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#D9B77E"/></svg>
    <svg class="xh-flake" style="right:24%;top:4%;width:12px" viewBox="0 0 24 24"><path d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" fill="#F4EFE6"/></svg>
-   <img class="xh-chef" src="img/rebecca_plate.webp?v=6288cfff" width="720" height="752" fetchpriority="high" alt="Chef Rebecca Corda holding a plate of her Christmas sweets">
+   <img class="xh-chef" src="img/rebecca_plate.webp?v=92dc951e" width="720" height="752" fetchpriority="high" alt="Chef Rebecca Corda holding a plate of her Christmas sweets">
    <svg class="xh-holly" style="right:-1%;top:34%;width:84px;transform:rotate(28deg)" viewBox="0 0 100 70" aria-hidden="true"><path d="M50 40 C38 18 18 22 6 10 C14 16 20 6 28 12 C30 2 40 8 44 2 C46 18 58 30 50 40Z" fill="#2E6B4F"/><path d="M50 40 C62 18 82 22 94 10 C86 16 80 6 72 12 C70 2 60 8 56 2 C54 18 42 30 50 40Z" fill="#3F8763"/><circle cx="43" cy="44" r="7" fill="#C8202F"/><circle cx="57" cy="45" r="7" fill="#B3122B"/><circle cx="50" cy="54" r="7" fill="#D4283A"/><circle cx="41" cy="42" r="2" fill="#fff" opacity=".6"/></svg>
    <div class="xh-tag"><span class="xh-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F4EFE6" stroke-width="2" stroke-linecap="round"><path d="M6 13.9A4 4 0 0 1 7 6a5 5 0 0 1 10 0 4 4 0 0 1 1 7.9V21H6z"/><path d="M6 17h12"/></svg></span><span><b>Chef Rebecca Corda</b>Made fresh in her kitchen</span></div>
   </div>
@@ -551,7 +567,7 @@ footer small{opacity:.75}
 <script>
 (function(){
 "use strict";
-var IMG = {"bauble": "img/bauble.webp?v=84ac5e2a", "choctarts": "img/choctarts.webp?v=a0496dfa", "coconutice": "img/coconutice.webp?v=825f6e0c", "coconuttarts": "img/coconuttarts.webp?v=e6c4a260", "cookies_mix": "img/cookies_mix.webp?v=e3e3556e", "cookies_reindeer": "img/cookies_reindeer.webp?v=43ca4ce7", "cookies_tree": "img/cookies_tree.webp?v=f282027b", "guava": "img/guava.webp?v=b4ee02db", "kulkuls": "img/kulkuls.webp?v=13d46411", "logo_color": "img/logo_color.webp?v=d792e80c", "logo_color_whitetext": "img/logo_color_whitetext.webp?v=3e7745c7", "marzipan": "img/marzipan.webp?v=7d690b72", "milkcream": "img/milkcream.webp?v=3c635063", "nevries_rose": "img/nevries_rose.webp?v=d3a0a4ca", "reindeer": "img/reindeer.webp?v=dfce2591", "rumsquare": "img/rumsquare.webp?v=8fed53cc", "sweets_mix": "img/sweets_mix.webp?v=5456ed5c", "bow": "img/bow.webp?v=3344814b", "s_neureos": "img/s_neureos.webp?v=f58e66d0", "s_guava": "img/s_guava.webp?v=69e7bc7c", "p_marzipan": "img/p_marzipan.webp?v=b910f84f", "p_snowflake": "img/p_snowflake.webp?v=baaf44f7", "p_kulkul": "img/p_kulkul.webp?v=a521b335", "s_shank": "img/s_shank.webp?v=4e01757c", "p_cice": "img/p_cice.webp?v=47568056", "p_nankhatai": "img/p_nankhatai.webp?v=35e5ee82", "s_rose": "img/s_rose.webp?v=e475da9b", "p_milkcream": "img/p_milkcream.webp?v=b4cf9032", "p_santa": "img/p_santa.webp?v=351365d1", "p_guava": "img/p_guava.webp?v=48c10615", "p_bombs": "img/p_bombs.webp?v=f5dc288d", "p_neureos": "img/p_neureos.webp?v=83caf044", "s_kulkul": "img/s_kulkul.webp?v=214fe2b4", "s_bombs": "img/s_bombs.webp?v=3568cfed", "s_marzipan": "img/s_marzipan.webp?v=096c3cde", "p_datewal": "img/p_datewal.webp?v=e6025672", "s_datewal": "img/s_datewal.webp?v=48c4ca97", "rebecca_plate": "img/rebecca_plate.webp?v=6288cfff", "s_baath": "img/s_baath.webp?v=5499f3bf", "p_baath": "img/p_baath.webp?v=b31ac2b7", "p_shank": "img/p_shank.webp?v=be270e27", "p_macarons": "img/p_macarons.webp?v=c8511ffd", "p_reindeer": "img/p_reindeer.webp?v=a6073b8f", "chef_smile": "img/chef_smile.webp?v=cdef43e0", "p_tree": "img/p_tree.webp?v=8b1e6e91", "p_ginger": "img/p_ginger.webp?v=af2b651a", "s_cice": "img/s_cice.webp?v=ed635c3d", "p_rumcake": "img/p_rumcake.webp?v=50a5fcb5", "p_rose": "img/p_rose.webp?v=c6c130df", "chef_table": "img/chef_table.webp?v=efad1b4a", "p_cotart": "img/p_cotart.webp?v=0e6318df", "chef_face": "img/chef_face.webp?v=04d43a50", "s_milkcream": "img/s_milkcream.webp?v=458933fc", "s_nankhatai": "img/s_nankhatai.webp?v=1387287b"};
+var IMG = {"bauble": "img/bauble.webp?v=84ac5e2a", "choctarts": "img/choctarts.webp?v=a0496dfa", "coconutice": "img/coconutice.webp?v=825f6e0c", "coconuttarts": "img/coconuttarts.webp?v=e6c4a260", "cookies_mix": "img/cookies_mix.webp?v=e3e3556e", "cookies_reindeer": "img/cookies_reindeer.webp?v=43ca4ce7", "cookies_tree": "img/cookies_tree.webp?v=f282027b", "guava": "img/guava.webp?v=b4ee02db", "kulkuls": "img/kulkuls.webp?v=13d46411", "logo_color": "img/logo_color.webp?v=d792e80c", "logo_color_whitetext": "img/logo_color_whitetext.webp?v=3e7745c7", "marzipan": "img/marzipan.webp?v=7d690b72", "milkcream": "img/milkcream.webp?v=3c635063", "nevries_rose": "img/nevries_rose.webp?v=d3a0a4ca", "reindeer": "img/reindeer.webp?v=dfce2591", "rumsquare": "img/rumsquare.webp?v=8fed53cc", "sweets_mix": "img/sweets_mix.webp?v=5456ed5c", "bow": "img/bow.webp?v=3344814b", "s_neureos": "img/s_neureos.webp?v=f58e66d0", "s_guava": "img/s_guava.webp?v=69e7bc7c", "p_marzipan": "img/p_marzipan.webp?v=b910f84f", "p_snowflake": "img/p_snowflake.webp?v=baaf44f7", "p_kulkul": "img/p_kulkul.webp?v=a521b335", "s_shank": "img/s_shank.webp?v=4e01757c", "p_cice": "img/p_cice.webp?v=47568056", "p_nankhatai": "img/p_nankhatai.webp?v=35e5ee82", "s_rose": "img/s_rose.webp?v=e475da9b", "p_milkcream": "img/p_milkcream.webp?v=b4cf9032", "p_santa": "img/p_santa.webp?v=351365d1", "p_guava": "img/p_guava.webp?v=48c10615", "p_bombs": "img/p_bombs.webp?v=f5dc288d", "p_neureos": "img/p_neureos.webp?v=83caf044", "s_kulkul": "img/s_kulkul.webp?v=214fe2b4", "s_bombs": "img/s_bombs.webp?v=3568cfed", "s_marzipan": "img/s_marzipan.webp?v=096c3cde", "p_datewal": "img/p_datewal.webp?v=e6025672", "s_datewal": "img/s_datewal.webp?v=48c4ca97", "rebecca_plate": "img/rebecca_plate.webp?v=92dc951e", "s_baath": "img/s_baath.webp?v=5499f3bf", "p_baath": "img/p_baath.webp?v=b31ac2b7", "p_shank": "img/p_shank.webp?v=be270e27", "p_macarons": "img/p_macarons.webp?v=c8511ffd", "p_reindeer": "img/p_reindeer.webp?v=a6073b8f", "chef_smile": "img/chef_smile.webp?v=cdef43e0", "p_tree": "img/p_tree.webp?v=8b1e6e91", "p_ginger": "img/p_ginger.webp?v=af2b651a", "s_cice": "img/s_cice.webp?v=ed635c3d", "p_rumcake": "img/p_rumcake.webp?v=50a5fcb5", "p_rose": "img/p_rose.webp?v=c6c130df", "chef_table": "img/chef_table.webp?v=efad1b4a", "p_cotart": "img/p_cotart.webp?v=0e6318df", "chef_face": "img/chef_face.webp?v=04d43a50", "s_milkcream": "img/s_milkcream.webp?v=458933fc", "s_nankhatai": "img/s_nankhatai.webp?v=1387287b"};
 var WA = "918087800535";
 var CFG = {closeAt:"2026-12-13T23:59:59+05:30", firstDeliveryDate:"2026-12-20", lastDeliveryDate:"2026-12-24", upiId:"rebeccacorda14-3@okaxis", upiName:"Rebecca Corda", soldOut:[], fullDates:[], pickupInfo:"Pickup address and timings will be shared on WhatsApp."};
 var API = "https://script.google.com/macros/s/AKfycbyPiyZia6992mpGfEQj4Ehb10d-bnhDlb0fQqJqQ_0nignIbXRO0fxc4UVapH_EdLeK/exec";
@@ -962,11 +978,14 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
 
 (function peekers(){
   if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var P=["<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g class=\"pk-arm\"><path d=\"M84 92 L112 70 M104 76 L110 62 M104 76 L118 78\" stroke=\"#6B4423\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/></g><circle cx=\"60\" cy=\"118\" r=\"38\" fill=\"#fff\" stroke=\"#D9D2C5\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"58\" r=\"28\" fill=\"#fff\" stroke=\"#D9D2C5\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"108\" r=\"3.5\" fill=\"#2B1B17\"/><circle cx=\"60\" cy=\"122\" r=\"3.5\" fill=\"#2B1B17\"/><circle cx=\"60\" cy=\"136\" r=\"3.5\" fill=\"#2B1B17\"/><path d=\"M34 80 Q60 92 86 80 L86 89 Q60 101 34 89Z\" fill=\"#C21D30\"/><path d=\"M70 86 L78 108 L68 108 L64 90Z\" fill=\"#A3172A\"/><path d=\"M38 34 L82 34 L82 38 L38 38Z\" fill=\"#1F1F1F\"/><rect x=\"44\" y=\"10\" width=\"32\" height=\"26\" rx=\"3\" fill=\"#1F1F1F\"/><rect x=\"44\" y=\"28\" width=\"32\" height=\"5\" fill=\"#C21D30\"/><circle cx=\"50\" cy=\"54\" r=\"3.2\" fill=\"#2B1B17\"/><circle cx=\"70\" cy=\"54\" r=\"3.2\" fill=\"#2B1B17\"/><path d=\"M60 60 L80 65 L60 66Z\" fill=\"#F08A24\"/><path d=\"M48 70 Q60 77 72 70\" stroke=\"#2B1B17\" stroke-width=\"2.5\" fill=\"none\" stroke-linecap=\"round\" stroke-dasharray=\"0.5 5\"/><circle cx=\"45\" cy=\"63\" r=\"4\" fill=\"#F7B5B5\" opacity=\".7\"/><circle cx=\"75\" cy=\"63\" r=\"4\" fill=\"#F7B5B5\" opacity=\".7\"/></svg>","<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g class=\"pk-arm\"><path d=\"M86 112 L106 82\" stroke=\"#C21D30\" stroke-width=\"12\" stroke-linecap=\"round\"/><rect x=\"99\" y=\"66\" width=\"16\" height=\"9\" rx=\"4\" fill=\"#fff\" transform=\"rotate(-30 107 70)\"/><circle cx=\"110\" cy=\"62\" r=\"9\" fill=\"#1F4D3A\"/></g><path d=\"M22 160 Q24 112 60 108 Q96 112 98 160Z\" fill=\"#C21D30\"/><rect x=\"55\" y=\"112\" width=\"10\" height=\"48\" fill=\"#fff\" opacity=\".9\"/><circle cx=\"60\" cy=\"70\" r=\"30\" fill=\"#F2C7A5\"/><path d=\"M28 74 Q30 120 60 124 Q90 120 92 74 Q84 92 60 92 Q36 92 28 74Z\" fill=\"#fff\"/><path d=\"M42 84 Q51 78 60 84 Q69 78 78 84 Q69 90 60 86 Q51 90 42 84Z\" fill=\"#fff\" stroke=\"#E6DED2\" stroke-width=\"1\"/><circle cx=\"60\" cy=\"76\" r=\"5.5\" fill=\"#E8848C\"/><circle cx=\"49\" cy=\"66\" r=\"3.2\" fill=\"#2B1B17\"/><circle cx=\"71\" cy=\"66\" r=\"3.2\" fill=\"#2B1B17\"/><path d=\"M44 58 Q49 55 54 58 M66 58 Q71 55 76 58\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"41\" cy=\"74\" r=\"5\" fill=\"#F29A9A\" opacity=\".6\"/><circle cx=\"79\" cy=\"74\" r=\"5\" fill=\"#F29A9A\" opacity=\".6\"/><path d=\"M28 52 Q36 14 70 16 Q96 20 100 46 L88 40 Q80 26 64 26 Q40 30 30 52Z\" fill=\"#C21D30\"/><path d=\"M26 50 Q60 38 94 50 Q95 57 94 60 Q60 48 26 60 Q25 55 26 50Z\" fill=\"#fff\"/><circle cx=\"102\" cy=\"46\" r=\"9\" fill=\"#fff\"/></svg>","<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" stroke=\"#7A4A26\" stroke-width=\"6\" stroke-linecap=\"round\"><path d=\"M40 46 Q30 26 34 8 M33 26 Q22 22 18 12 M36 16 Q44 10 46 2\"/><path d=\"M80 46 Q90 26 86 8 M87 26 Q98 22 102 12 M84 16 Q76 10 74 2\"/></g><g class=\"pk-arm\"><ellipse cx=\"96\" cy=\"58\" rx=\"13\" ry=\"7\" fill=\"#A86B3C\" transform=\"rotate(-25 96 58)\"/><ellipse cx=\"96\" cy=\"58\" rx=\"7\" ry=\"3.5\" fill=\"#F2B8B0\" transform=\"rotate(-25 96 58)\"/></g><ellipse cx=\"24\" cy=\"58\" rx=\"13\" ry=\"7\" fill=\"#A86B3C\" transform=\"rotate(25 24 58)\"/><ellipse cx=\"24\" cy=\"58\" rx=\"7\" ry=\"3.5\" fill=\"#F2B8B0\" transform=\"rotate(25 24 58)\"/><path d=\"M26 160 Q28 116 60 112 Q92 116 94 160Z\" fill=\"#A86B3C\"/><path d=\"M44 160 Q46 126 60 124 Q74 126 76 160Z\" fill=\"#E9D3B8\"/><ellipse cx=\"60\" cy=\"76\" rx=\"30\" ry=\"33\" fill=\"#A86B3C\"/><ellipse cx=\"60\" cy=\"92\" rx=\"18\" ry=\"14\" fill=\"#E9D3B8\"/><circle cx=\"48\" cy=\"70\" r=\"4\" fill=\"#2B1B17\"/><circle cx=\"72\" cy=\"70\" r=\"4\" fill=\"#2B1B17\"/><circle cx=\"49.3\" cy=\"68.7\" r=\"1.3\" fill=\"#fff\"/><circle cx=\"73.3\" cy=\"68.7\" r=\"1.3\" fill=\"#fff\"/><circle cx=\"60\" cy=\"86\" r=\"8\" fill=\"#D7263D\"/><circle cx=\"57\" cy=\"83\" r=\"2.4\" fill=\"#fff\" opacity=\".6\"/><path d=\"M53 98 Q60 104 67 98\" stroke=\"#2B1B17\" stroke-width=\"2.5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M32 114 Q60 126 88 114 L88 122 Q60 134 32 122Z\" fill=\"#C21D30\"/><circle cx=\"60\" cy=\"128\" r=\"6\" fill=\"#E7C14E\" stroke=\"#B8925A\" stroke-width=\"1.5\"/></svg>"], k=Math.floor(Math.random()*3);
+  var P=["<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g class=\"pk-arm\"><path d=\"M84 92 L112 70 M104 76 L110 62 M104 76 L118 78\" stroke=\"#6B4423\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/></g><circle cx=\"60\" cy=\"118\" r=\"38\" fill=\"#fff\" stroke=\"#D9D2C5\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"58\" r=\"28\" fill=\"#fff\" stroke=\"#D9D2C5\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"108\" r=\"3.5\" fill=\"#2B1B17\"/><circle cx=\"60\" cy=\"122\" r=\"3.5\" fill=\"#2B1B17\"/><circle cx=\"60\" cy=\"136\" r=\"3.5\" fill=\"#2B1B17\"/><path d=\"M34 80 Q60 92 86 80 L86 89 Q60 101 34 89Z\" fill=\"#C21D30\"/><path d=\"M70 86 L78 108 L68 108 L64 90Z\" fill=\"#A3172A\"/><path d=\"M38 34 L82 34 L82 38 L38 38Z\" fill=\"#1F1F1F\"/><rect x=\"44\" y=\"10\" width=\"32\" height=\"26\" rx=\"3\" fill=\"#1F1F1F\"/><rect x=\"44\" y=\"28\" width=\"32\" height=\"5\" fill=\"#C21D30\"/><circle cx=\"50\" cy=\"54\" r=\"3.2\" fill=\"#2B1B17\"/><circle cx=\"70\" cy=\"54\" r=\"3.2\" fill=\"#2B1B17\"/><path d=\"M60 60 L80 65 L60 66Z\" fill=\"#F08A24\"/><path d=\"M48 70 Q60 77 72 70\" stroke=\"#2B1B17\" stroke-width=\"2.5\" fill=\"none\" stroke-linecap=\"round\" stroke-dasharray=\"0.5 5\"/><circle cx=\"45\" cy=\"63\" r=\"4\" fill=\"#F7B5B5\" opacity=\".7\"/><circle cx=\"75\" cy=\"63\" r=\"4\" fill=\"#F7B5B5\" opacity=\".7\"/></svg>","<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g class=\"pk-arm\"><path d=\"M86 112 L106 82\" stroke=\"#C21D30\" stroke-width=\"12\" stroke-linecap=\"round\"/><rect x=\"99\" y=\"66\" width=\"16\" height=\"9\" rx=\"4\" fill=\"#fff\" transform=\"rotate(-30 107 70)\"/><circle cx=\"110\" cy=\"62\" r=\"9\" fill=\"#1F4D3A\"/></g><path d=\"M22 160 Q24 112 60 108 Q96 112 98 160Z\" fill=\"#C21D30\"/><rect x=\"55\" y=\"112\" width=\"10\" height=\"48\" fill=\"#fff\" opacity=\".9\"/><circle cx=\"60\" cy=\"70\" r=\"30\" fill=\"#F2C7A5\"/><path d=\"M28 74 Q30 120 60 124 Q90 120 92 74 Q84 92 60 92 Q36 92 28 74Z\" fill=\"#fff\"/><path d=\"M42 84 Q51 78 60 84 Q69 78 78 84 Q69 90 60 86 Q51 90 42 84Z\" fill=\"#fff\" stroke=\"#E6DED2\" stroke-width=\"1\"/><circle cx=\"60\" cy=\"76\" r=\"5.5\" fill=\"#E8848C\"/><circle cx=\"49\" cy=\"66\" r=\"3.2\" fill=\"#2B1B17\"/><circle cx=\"71\" cy=\"66\" r=\"3.2\" fill=\"#2B1B17\"/><path d=\"M44 58 Q49 55 54 58 M66 58 Q71 55 76 58\" stroke=\"#fff\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"41\" cy=\"74\" r=\"5\" fill=\"#F29A9A\" opacity=\".6\"/><circle cx=\"79\" cy=\"74\" r=\"5\" fill=\"#F29A9A\" opacity=\".6\"/><path d=\"M28 52 Q36 14 70 16 Q96 20 100 46 L88 40 Q80 26 64 26 Q40 30 30 52Z\" fill=\"#C21D30\"/><path d=\"M26 50 Q60 38 94 50 Q95 57 94 60 Q60 48 26 60 Q25 55 26 50Z\" fill=\"#fff\"/><circle cx=\"102\" cy=\"46\" r=\"9\" fill=\"#fff\"/></svg>","<svg viewBox=\"0 0 120 160\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" stroke=\"#7A4A26\" stroke-width=\"6\" stroke-linecap=\"round\"><path d=\"M40 46 Q30 26 34 8 M33 26 Q22 22 18 12 M36 16 Q44 10 46 2\"/><path d=\"M80 46 Q90 26 86 8 M87 26 Q98 22 102 12 M84 16 Q76 10 74 2\"/></g><g><ellipse cx=\"96\" cy=\"58\" rx=\"13\" ry=\"7\" fill=\"#A86B3C\" transform=\"rotate(-25 96 58)\"/><ellipse cx=\"96\" cy=\"58\" rx=\"7\" ry=\"3.5\" fill=\"#F2B8B0\" transform=\"rotate(-25 96 58)\"/></g><ellipse cx=\"24\" cy=\"58\" rx=\"13\" ry=\"7\" fill=\"#A86B3C\" transform=\"rotate(25 24 58)\"/><ellipse cx=\"24\" cy=\"58\" rx=\"7\" ry=\"3.5\" fill=\"#F2B8B0\" transform=\"rotate(25 24 58)\"/><path d=\"M26 160 Q28 116 60 112 Q92 116 94 160Z\" fill=\"#A86B3C\"/><path d=\"M44 160 Q46 126 60 124 Q74 126 76 160Z\" fill=\"#E9D3B8\"/><ellipse cx=\"60\" cy=\"76\" rx=\"30\" ry=\"33\" fill=\"#A86B3C\"/><ellipse cx=\"60\" cy=\"92\" rx=\"18\" ry=\"14\" fill=\"#E9D3B8\"/><circle cx=\"48\" cy=\"70\" r=\"4\" fill=\"#2B1B17\"/><circle cx=\"72\" cy=\"70\" r=\"4\" fill=\"#2B1B17\"/><circle cx=\"49.3\" cy=\"68.7\" r=\"1.3\" fill=\"#fff\"/><circle cx=\"73.3\" cy=\"68.7\" r=\"1.3\" fill=\"#fff\"/><circle cx=\"60\" cy=\"86\" r=\"8\" fill=\"#D7263D\"/><circle cx=\"57\" cy=\"83\" r=\"2.4\" fill=\"#fff\" opacity=\".6\"/><path d=\"M53 98 Q60 104 67 98\" stroke=\"#2B1B17\" stroke-width=\"2.5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M32 114 Q60 126 88 114 L88 122 Q60 134 32 122Z\" fill=\"#C21D30\"/><circle cx=\"60\" cy=\"128\" r=\"6\" fill=\"#E7C14E\" stroke=\"#B8925A\" stroke-width=\"1.5\"/></svg>"], k=Math.floor(Math.random()*3), lastSide="", lastPos=-99;
   function go(){
     if(!document.hidden && !document.querySelector(".peek") && !(document.getElementById("sheet")&&document.getElementById("sheet").classList.contains("open"))){
-      var d=document.createElement("div"); d.className="peek"+(Math.random()<.5?" r":""); d.innerHTML='<div class="pk-b">'+P[k]+'</div>'; k=(k+1)%3;
-      d.style.top=(30+Math.random()*50)+"vh"; document.body.appendChild(d);
+      var d=document.createElement("div"), opts=["l","r","b"].filter(function(x){ return x!==lastSide; }), side=opts[Math.floor(Math.random()*opts.length)];
+      d.className="peek"+(side==="r"?" r":side==="b"?" b":""); d.innerHTML='<div class="pk-b">'+P[k]+'</div>'; k=(k+1)%3; lastSide=side;
+      var pos; do{ pos=side==="b"?12+Math.random()*76:22+Math.random()*58; }while(Math.abs(pos-lastPos)<18); lastPos=pos;
+      if(side==="b") d.style.left=pos+"vw"; else d.style.top=pos+"vh";
+      document.body.appendChild(d);
       setTimeout(function(){ d.remove(); }, 6800);
     }
     setTimeout(go, 8000+Math.random()*9000);
@@ -976,40 +995,45 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
 
 (function tour(){
   var S=[
-    {sel:"#cattiles .cattile", t:"Pick a category", p:"Tap any category to jump straight to those sweets, cakes, cookies or hampers."},
-    {sel:"#groups .plus", t:"Add items", p:"Tap + to add an item to your cart. Tap it again to add more."},
-    {sel:"#cartBtn", t:"Open your cart", p:"Everything you add is saved here. When you're done, tap Cart to review your items."},
-    {sel:null, t:"Enter your details", p:"In the cart, tap Next and enter your name and WhatsApp number, then choose Pickup or Delivery. For delivery, add your address and area. Rebecca confirms the delivery charge."},
-    {sel:null, t:"Pick a date and time", p:"Choose a day between 20 and 24 December and a Morning or Evening slot."},
-    {sel:null, t:"Place order on WhatsApp", p:"Review your order and tap Place order on WhatsApp. WhatsApp opens with your order ready, just press Send. Rebecca confirms and shares payment details. Last date to order: 13 December."}
-  ], i=0, ov, hole, tip;
-  function done(){ try{ localStorage.setItem("sprk_tour","1"); }catch(e){} if(ov){ ov.remove(); ov=null; } removeEventListener("resize",place); }
+    {sel:"#cattiles .cattile", t:"Pick a category", p:"Tap a category tile now to jump to it.", click:1},
+    {sel:"#groups .plus", t:"Add an item", p:"Tap the + button to add this item to your cart. Tap again to add more.", click:1},
+    {sel:"#cartBtn", t:"Open your cart", p:"Now tap Cart to see what you've added.", until:"#n1"},
+    {sel:"#n1", t:"Check your items", p:"Change quantities if you like, then tap this button to continue.", until:"#df"},
+    {sel:"#n2", t:"Fill your details", p:"Enter your name and WhatsApp number, choose Pickup or Delivery, a date (20 to 24 Dec) and a time. Then tap Review order.", until:"#place"},
+    {sel:"#place", t:"Place your order", p:"Tap Place order on WhatsApp. WhatsApp opens with your order ready, just press Send. Rebecca confirms and shares payment details.", click:1, last:1}
+  ], i=0, ov, hole, tip, poll;
+  function done(){ try{ localStorage.setItem("sprk_tour","1"); }catch(e){} if(ov){ ov.remove(); ov=null; } clearInterval(poll); removeEventListener("resize",place); removeEventListener("scroll",place,true); document.removeEventListener("click",onClick,true); }
+  function vis(el){ if(!el) return false; var r=el.getBoundingClientRect(); return r.width>0 && r.height>0; }
   function place(){
-    var s=S[i], el=s.sel && document.querySelector(s.sel), vh=innerHeight;
-    if(el){ var r=el.getBoundingClientRect(), pad=6;
+    if(!ov) return; var s=S[i], el=document.querySelector(s.sel), vh=innerHeight;
+    if(vis(el)){ var r=el.getBoundingClientRect(), pad=6;
       hole.style.cssText="top:"+(r.top-pad)+"px;left:"+(r.left-pad)+"px;width:"+(r.width+pad*2)+"px;height:"+(r.height+pad*2)+"px";
-      var th=tip.offsetHeight, below=r.bottom+18;
-      tip.style.top=((below+th<vh-10)?below:Math.max(10,r.top-th-18))+"px";
-    } else { hole.style.cssText="top:50%;left:50%;width:0;height:0"; tip.style.top=Math.max(20,(vh-tip.offsetHeight)/2)+"px"; }
+      var th=tip.offsetHeight, below=r.bottom+16;
+      tip.style.top=((below+th<vh-8)?below:Math.max(8,r.top-th-16))+"px";
+    } else { hole.style.cssText="top:50%;left:50%;width:0;height:0"; tip.style.top=Math.max(16,(vh-tip.offsetHeight)/2)+"px"; }
   }
   function show(){
-    var s=S[i], el=s.sel && document.querySelector(s.sel);
-    tip.innerHTML='<div class="st">Step '+(i+1)+' of '+S.length+'</div><h4>'+s.t+'</h4><p>'+s.p+'</p><div class="tb"><button type="button" class="tskip">Skip</button><span class="dots">'+S.map(function(_,k){return '<i'+(k===i?' class="on"':'')+'></i>';}).join("")+'</span><button type="button" class="tnext">'+(i===S.length-1?"Got it":"Next")+'</button></div>';
+    var s=S[i], el=document.querySelector(s.sel);
+    tip.innerHTML='<div class="st">Step '+(i+1)+' of '+S.length+'</div><h4>'+s.t+'</h4><p>'+s.p+'</p><div class="tb"><button type="button" class="tskip">End tour</button><span class="dots">'+S.map(function(_,k){return '<i'+(k===i?' class="on"':'')+'></i>';}).join("")+'</span><button type="button" class="tnext">'+(s.last?"Got it":"Skip step")+'</button></div>';
     tip.querySelector(".tskip").onclick=done;
-    tip.querySelector(".tnext").onclick=function(){ if(i<S.length-1){ i++; show(); } else done(); };
-    if(el && s.sel!=="#cartBtn"){ var y=el.getBoundingClientRect().top+scrollY-Math.max(110,(innerHeight-el.offsetHeight)/2-60); scrollTo({top:Math.max(0,y),behavior:"instant"}); }
-    setTimeout(place,60); place();
+    tip.querySelector(".tnext").onclick=function(){ if(s.last) done(); else next(); };
+    if(vis(el) && !el.closest(".sheet") && s.sel!=="#cartBtn"){ var y=el.getBoundingClientRect().top+scrollY-Math.max(110,(innerHeight-el.offsetHeight)/2-60); scrollTo({top:Math.max(0,y),behavior:"instant"}); }
+    else if(vis(el) && el.closest(".sheet")) el.scrollIntoView({block:"nearest"});
+    setTimeout(place,80); place();
   }
+  function next(){ if(i<S.length-1){ i++; show(); } else done(); }
+  function onClick(e){ var s=S[i]; if(s.click && e.target.closest && e.target.closest(s.sel)){ if(s.last){ done(); return; } setTimeout(next,450); } }
   function start(){
     if(ov) return; i=0;
     ov=document.createElement("div"); ov.className="tour"; ov.innerHTML='<div class="tour-hole"></div><div class="tour-tip" role="dialog" aria-live="polite"></div>';
     document.body.appendChild(ov); hole=ov.firstChild; tip=ov.lastChild;
-    ov.addEventListener("click",function(e){ if(e.target===ov) done(); });
-    addEventListener("resize",place); show();
+    addEventListener("resize",place); addEventListener("scroll",place,true); document.addEventListener("click",onClick,true);
+    poll=setInterval(function(){ var s=S[i]; if(s.until && vis(document.querySelector(s.until))) next(); else place(); },400);
+    show();
   }
   var b=document.getElementById("tourStart"); if(b) b.onclick=start;
   var seen=false; try{ seen=localStorage.getItem("sprk_tour")==="1"; }catch(e){}
-  if(!seen) setTimeout(function(){ var c=0; try{ c=Object.keys(JSON.parse(localStorage.getItem("sprk26")||"{}").cart||{}).length; }catch(e){} if(!c && scrollY<200 && !(document.getElementById("sheet")||{}).classList.contains("open")) start(); }, 3500);
+  if(!seen) setTimeout(function(){ var c=0; try{ c=Object.keys(JSON.parse(localStorage.getItem("sprk26")||"{}").cart||{}).length; }catch(e){} if(!c && scrollY<200 && !(document.getElementById("sheet")||{classList:{contains:function(){return false;}}}).classList.contains("open")) start(); }, 3500);
 })();
 </script>
 </body>
