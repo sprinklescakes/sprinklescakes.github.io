@@ -586,7 +586,7 @@ var ITEMS = [
   {id:"rumcake", cat:"cakes", sub:"Cakes", name:"Rum Cake", price:1400, label:"₹1,400", tags:["rum"], img:"p_rumcake"},
   {id:"rumsq", cat:"cakes", sub:"Cakes", name:"Rum Squares", price:150, label:"₹150", img:"rumsquare", tags:["rum"]},
   {id:"macarons", cat:"cakes", sub:"Tarts & bites", name:"Macarons", price:80, label:"₹80", tags:["u100"], img:"p_macarons"},
-  {id:"choctart", cat:"cakes", sub:"Tarts & bites", name:"Dark Chocolate & Salted Caramel Tarts", price:135, label:"₹135", img:"choctarts"},
+  {id:"choctart", cat:"cakes", sub:"Tarts & bites", name:"Dark Chocolate Tarts", price:135, label:"₹135", img:"choctarts"},
   {id:"cotart", cat:"cakes", sub:"Tarts & bites", name:"Coconut Tarts", price:80, label:"₹80", img:"p_cotart", tags:["u100"]},
   {id:"bauble", cat:"cookies", name:"Bauble Name Cookies", price:150, label:"₹150", img:"bauble", tags:["gift","kids"], personal:true},
   {id:"santa", cat:"cookies", name:"Santa Face Cookie", price:100, label:"₹100", img:"p_santa", tags:["kids","u100"]},
@@ -924,12 +924,13 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
 (function bigSnow(){
   if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var F='<svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(0)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(60)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(120)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(180)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(240)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><g transform="rotate(300)"><path d="M0 0V-45M0-14l-11-11M0-14l11-11M0-28l-9-9M0-28l9-9M0-40l-5-5M0-40l5-5"/></g><circle r="6"/></svg>';
-  var live=0, MAX=3;
+  var live=0, MAX=3, zi=Math.floor(Math.random()*4);
   function spawn(){
     if(!document.hidden && live<MAX){
-      var d=document.createElement("div"), s=18+Math.pow(Math.random(),1.4)*46, t=11+Math.random()*7;
+      var d=document.createElement("div"), s=12+Math.pow(Math.random(),1.3)*26, t=11+Math.random()*7;
       d.className="bigflake"; d.innerHTML=F;
-      d.style.cssText="left:"+(4+Math.random()*88)+"vw;width:"+s+"px;height:"+s+"px;animation-duration:"+t+"s;--dx:"+((Math.random()*2-1)*90)+"px;--o:"+(0.75+Math.random()*0.25);
+      zi=(zi+1+Math.floor(Math.random()*2))%4; var lx=zi*25+Math.random()*22;
+      d.style.cssText="left:"+lx+"vw;width:"+s+"px;height:"+s+"px;animation-duration:"+t+"s;--dx:"+((Math.random()*2-1)*90)+"px;--o:"+(0.75+Math.random()*0.25);
       d.firstChild.style.animationDuration=(8+Math.random()*10)+"s";
       live++; document.body.appendChild(d);
       setTimeout(function(){ d.remove(); live--; }, t*1000+200);
