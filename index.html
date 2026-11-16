@@ -1040,8 +1040,7 @@ if(LIVE){ call("getConfig", undefined, function(c){ if(c){ for(var k in c) if(c[
     show();
   }
   var b=document.getElementById("tourStart"); if(b) b.onclick=start;
-  var seen=false; try{ seen=localStorage.getItem("sprk_tour")==="1"; }catch(e){}
-  if(!seen) setTimeout(function(){ var c=0; try{ c=Object.keys(JSON.parse(localStorage.getItem("sprk26")||"{}").cart||{}).length; }catch(e){} if(!c && scrollY<200 && !(document.getElementById("sheet")||{classList:{contains:function(){return false;}}}).classList.contains("open")) start(); }, 3500);
+  setTimeout(function(){ if(scrollY<200 && !(document.getElementById("sheet")||{classList:{contains:function(){return false;}}}).classList.contains("open")) start(); }, 3500);
 })();
 </script>
 </body>
