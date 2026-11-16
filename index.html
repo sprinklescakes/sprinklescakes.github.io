@@ -838,7 +838,10 @@ function render(){
     $("n2").onclick = function(){
       var keys = ["cname","cphone","mode","addr","area","date","slot"], bad = keys.filter(function(k){ return !check(k, true); });
       var es = $("errsum");
-      if(bad.length){ es.hidden = false; es.textContent = "Please fix " + bad.length + (bad.length===1?" thing":" things") + " to continue"; es.focus(); B.scrollTop = 0; return; }
+      if(bad.length){ var NM={cname:"Your name",cphone:"WhatsApp number (10 digits)",mode:"Delivery or pickup",addr:"Full address",area:"Area / locality",date:"Date you need it",slot:"Preferred time (Morning or Evening)"}, AN={cname:"cname",cphone:"cphone",mode:"l-mode",addr:"addr",area:"area",date:"l-date",slot:"l-slot"};
+        es.hidden = false; es.innerHTML = 'Please fill in '+(bad.length===1?'this':'these')+' to continue:<ul style="margin:8px 0 0;padding-left:20px;font-weight:600">'+bad.map(function(k){ return '<li><a href="#" data-go="'+AN[k]+'" style="color:inherit">'+NM[k]+'</a></li>'; }).join("")+'</ul>';
+        es.querySelectorAll("[data-go]").forEach(function(a){ a.onclick = function(ev){ ev.preventDefault(); var t = $(a.getAttribute("data-go")); if(t){ t.scrollIntoView({block:"center",behavior:"smooth"}); if(t.focus && /INPUT|TEXTAREA|SELECT/.test(t.tagName)) setTimeout(function(){ t.focus(); },300); } }; });
+        es.focus(); B.scrollTop = 0; return; }
       es.hidden = true; form.website = $("website").value; step = 3; render(); };
   }
   if(step===3){
