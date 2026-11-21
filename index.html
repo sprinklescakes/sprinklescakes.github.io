@@ -643,7 +643,8 @@ var ITEMS = [
   {id:"nankhatai", cat:"sweets", sub:"Sold by piece", name:"Nankhatai", unit:"10 pcs", price:299, img:"p_nankhatai", label:"₹299"},
   {id:"datewal", cat:"cakes", sub:"Cakes", name:"Date & Walnut Cake", unit:"400 g", price:450, img:"p_datewal", label:"₹450"},
   {id:"baath", cat:"cakes", sub:"Cakes", name:"Coconut Baath", unit:"300 g", price:399, img:"p_baath", label:"₹399"},
-  {id:"rumcake", cat:"cakes", sub:"Cakes", name:"Rum Cake", price:1400, label:"₹1,400", tags:["rum"], img:"p_rumcake"},
+  {id:"rumcake", cat:"cakes", sub:"Cakes", name:"Rum Cake", unit:"500 g", price:1400, label:"₹1,400", tags:["rum"], img:"p_rumcake"},
+  {id:"rumcake1k", cat:"cakes", sub:"Cakes", name:"Rum Cake", unit:"1 kg", price:2699, label:"₹2,699", tags:["rum"], img:"p_rumcake"},
   {id:"rumsq", cat:"cakes", sub:"Cakes", name:"Rum Squares", price:150, label:"₹150", img:"rumsquare", tags:["rum"]},
   {id:"macarons", cat:"cakes", sub:"Tarts & bites", name:"Macarons", price:80, label:"₹80", tags:["u100"], img:"p_macarons"},
   {id:"choctart", cat:"cakes", sub:"Tarts & bites", name:"Dark Chocolate Tarts", price:135, label:"₹135", img:"choctarts"},
@@ -654,7 +655,7 @@ var ITEMS = [
   {id:"tree", cat:"cookies", name:"Christmas Tree Cookie", price:90, label:"₹90", img:"p_tree", tags:["kids","u100"]},
   {id:"snowflake", cat:"cookies", name:"Snowflake Cookie", price:90, img:"p_snowflake", label:"₹90", tags:["kids","u100"]},
   {id:"ginger", cat:"cookies", name:"Gingerbread Men Cookie", price:90, img:"p_ginger", label:"₹90", tags:["kids","u100"]},
-  {id:"kit", cat:"kits", name:"Royal Icing Cookie Kit", price:499, label:"₹499", tags:["kids"]},
+  {id:"kit", cat:"kits", name:"Royal Icing Cookie Play Kit", price:499, label:"₹499", tags:["kids"]},
   {id:"bombs", cat:"kits", name:"Cocoa Bombs", unit:"Set of 2", price:250, img:"p_bombs", label:"₹250", tags:["kids"]}
 ];
 var byId = {}; ITEMS.forEach(function(i){ byId[i.id] = i; });
@@ -878,10 +879,11 @@ function render(){
     if(!dl && $("qrPay")) drawQR($("qrPay"), upiUrl(subtotal()));
   }
   if(step===4){
-    $("sTitle").textContent = "Order placed";
+    $("sTitle").textContent = lastOrder.updated ? "Added to your order" : "Order placed";
     var o = lastOrder;
-    B.innerHTML = '<div class="done"><div class="tick"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></div><h3>Thank you, '+esc(String(o.name).split(" ")[0])+'!</h3><div class="oid num">'+esc(o.id)+'</div><p style="margin:0 0 6px">Your order is received. WhatsApp opens with your order ready: just press Send so Rebecca can confirm it'+(o.del?' with the delivery charge':'')+'.</p><p class="help">Orders once confirmed cannot be cancelled.</p></div>'
+    B.innerHTML = '<div class="done"><div class="tick"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg></div><h3>Thank you, '+esc(String(o.name).split(" ")[0])+'!</h3><div class="oid num">'+esc(o.id)+'</div><p style="margin:0 0 6px">'+(o.updated?'These items were <b>added to your existing order</b>. ':'')+'Your order is received. WhatsApp opens with your order ready: just press Send so Rebecca can confirm it'+(o.del?' with the delivery charge':'')+'.</p><p class="help">Orders once confirmed cannot be cancelled.</p></div>'
       + '<div class="box"><h4>Summary</h4>'+o.lines+'<div class="sum" style="margin-top:10px"><span>Items total</span><b class="num">'+rupee(o.total)+'</b></div></div>'
+      + (o.updated ? '<div class="box"><h4>Your full order '+esc(o.id)+'</h4><div style="white-space:pre-line;font-size:14px;line-height:1.5">'+esc(o.fullText)+'</div><div class="sum" style="margin-top:10px"><span>Order total</span><b class="num">'+rupee(o.grand)+'</b></div></div>' : '')
       + '<div class="note">WhatsApp not opening? Message Rebecca at <b class="num">8087800535</b> with your order number <b>'+esc(o.id)+'</b>.</div>';
     F.innerHTML = '<a class="btn btn-burg block" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent(o.msg)+'"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H10l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>Send order to Rebecca on WhatsApp</a>';
   }
@@ -926,7 +928,9 @@ function place(){
     placing = false;
     if(!res || !res.ok){ fail(res && res.error ? res.error : "Something went wrong."); return; }
     var id = res.id;
-    lastOrder = {id:id, total:total, del: form.mode==="delivery", name: form.cname, lines: lines(false), msg: buildMsg(id, items, total)};
+    var msg = buildMsg(id, items, total);
+    if(res.updated){ msg = msg.replace("Hi Rebecca! New Christmas order " + id, "Hi Rebecca! I've added to my Christmas order " + id) + "\n\nMy full order now:\n" + (res.fullText||"") + "\nTotal: " + rupee(res.total||total); }
+    lastOrder = {id:id, total:total, del: form.mode==="delivery", name: form.cname, lines: lines(false), msg: msg, updated: !!res.updated, fullText: res.fullText||"", grand: res.total||total};
     cart = {}; var keep = {cname:form.cname, cphone:form.cphone, mode:form.mode, addr:form.addr, area:form.area, landmark:form.landmark}; form = keep; save();
     var autoWA = true;
     step = 4; render(); $("cartN").textContent = "0"; refresh();
